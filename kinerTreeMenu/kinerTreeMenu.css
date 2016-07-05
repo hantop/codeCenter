@@ -1,0 +1,150 @@
+@charset "UTF-8";
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    height: 100%;
+}
+.kinerTreeMenu{
+    background-color: lightgray;
+    font-size: .2rem;
+    overflow: scroll;
+    padding: .2rem;
+    position: relative;
+}
+.kinerTreeMenu .kinerTreeMenuIcon{
+    width: .4rem;
+    height: .4rem;
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: .1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    vertical-align: middle;
+    margin-left: .55rem;
+}
+.kinerTreeMenu .kinerMenuItem{
+    position: relative;
+}
+.kinerTreeMenu .menuBox{
+    border-left: dotted 1px dodgerblue;
+    padding-left: 20px;
+}
+.kinerTreeMenu .menuBox.current{
+    border-left-color: indianred;
+    border-radius: 10px;
+}
+.kinerTreeMenu .menuBox.current>.kinerMenuItem::before{
+    border-bottom-color: indianred;
+}
+.kinerTreeMenu .menuBox.current>.kinerMenuItem>.title{
+    border-color: indianred;
+}
+.kinerTreeMenu .kinerMenuItem::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 1px;
+    border-bottom: solid 1px dodgerblue;
+    top: 15px;
+    left: -20px;
+}
+.kinerMenuItem .title:before,.kinerMenuItem.closed .title:before{
+    content: "+";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: .3rem;
+    font-weight: bolder;
+    height: .6rem;
+    background-color: #0e90d2;
+    color: whitesmoke;
+    line-height: .6rem;
+    padding: 0 .2rem;
+}
+
+.kinerTreeMenu .menuBox.current>.kinerMenuItem>.title:before{
+    background-color: indianred;
+}
+.kinerMenuItem.showed>.title:before,.kinerMenuItem.noSubMenu>.title:before{
+    content: "-";
+}
+.kinerTreeMenu .title{
+    border-radius: 5px;
+    border: solid dodgerblue 1px;
+    padding: .1rem;
+    min-width: 2.5rem;
+    margin: .2rem 0;
+    cursor: default;
+    height: .4rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    line-height: .4rem;
+    background-color: #eaeaea;
+}
+.kinerTreeMenu .title.disabled{
+    background-color: #F5E1E4;
+}
+.kinerTreeMenu .noSubMenu .title{
+    background-color: #F5E1E4;
+}
+
+.kinerTreeMenu .kinerMenuItem.showed>.title{
+    background-color: #D9E5E8;
+}
+
+.kinerTreeMenuTitle{
+    padding: .2rem 0;
+    width: 100%;
+    background-color: #eaeaea;
+    border-radius: 5px;
+    overflow: hidden;
+    -webkit-box-shadow: inset 0 0 5px #FFFFFF, 0 0 5px #1a1a1a;
+    -moz-box-shadow: inset 0 0 5px #FFFFFF, 0 0 5px #1a1a1a;
+    box-shadow: inset 0 0 5px #FFFFFF, 0 0 5px #1a1a1a;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -ms-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition: all 500ms;
+}
+.kinerTreeMenuTitle:active{
+    -webkit-box-shadow: 0 0 5px #FFFFFF, inset 0 0 5px #1a1a1a;
+    -moz-box-shadow: 0 0 5px #FFFFFF, inset 0 0 5px #1a1a1a;
+    box-shadow: 0 0 5px #FFFFFF, inset 0 0 5px #1a1a1a;
+}
+.kinerTreeMenuTitle .kinerTreeMenuIcon{
+    width: .6rem;
+    height: .6rem;
+}
+.kinerTreeMenuTitle .textBox{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: .2rem;
+}
+.kinerTreeMenuTitle .textBox .menuTitle{
+    font-size: .4rem;
+    color: #1a1a1a;
+    margin-bottom: .1rem;
+}
+.kinerTreeMenuTitle .textBox .subTitle{
+    font-size: .2rem;
+    color: #6a6a6a;
+    font-weight: normal;
+}

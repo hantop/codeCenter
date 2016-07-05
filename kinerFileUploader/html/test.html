@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>KinerFileUploader</title>
+    <script src="../lib/jquery-1.8.3.min.js"></script>
+    <script src="../lib/webuploader.min.js"></script>
+    <script src="../kinerFileUploader.js"></script>
+
+</head>
+<body>
+<div id="picker">上传</div>
+
+<script>
+
+//    KinerFileUploader.setConfig({
+//        scriptBasePath:"../lib",
+//        swfBasePath:"../lib",
+//        styleBasePath:"../lib"
+//    });
+    KinerFileUploader.ready({
+        scriptBasePath:"../lib",
+        swfBasePath:"../lib",
+        styleBasePath:"../lib"
+    },function($,win,doc,WU){
+        WU.init({
+            picker:"#picker",
+            params:{
+                myName:"kiner"
+            },
+            serverUrl:"https://www.baidu.com",
+            extensions:"zip,jpg,jpeg,png,gif,bmp,rar",
+            isAutoUpload:true,
+            fileName:"fileName",
+            fileSize:5*1024*1024
+        });
+    });
+
+</script>
+</body>
+</html>

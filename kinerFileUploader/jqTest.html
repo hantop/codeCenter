@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jqTest</title>
+    <script src="./lib/jquery-1.8.3.min.js"></script>
+    <script src="./lib/webuploader.min.js"></script>
+    <script src="./kinerFileUploader.js"></script>
+</head>
+<body>
+<div id="picker">上传</div>
+<script>
+
+
+    var uploader = $('#picker').kinerFileUploader({
+        config:{
+            scriptBasePath:"./lib",
+            swfBasePath:"./lib",
+            styleBasePath:"./lib"
+        },
+        params:{
+            myName:"kiner"
+        },
+        serverUrl:"../dataCenter/data_success.json",
+        extensions:"zip,jpg,jpeg,png,gif,bmp,rar",
+        isAutoUpload:true,
+        fileName:"fileName",
+        fileSize:5*1024*1024,
+        allCallback: function(){
+            console.log("状态：", arguments);
+        },
+        uploadProgressCallback: function(data){
+            console.log("上传中：",arguments);
+        },
+        uploadSuccessCallback: function(data){
+            console.log("上传完成：",arguments);
+        },
+        uploadError: function(data){
+            console.log("上传出错：", arguments);
+        },
+        fileSizeErrorCallback: function(){
+            console.log("文件大小超出限制：", arguments);
+        },
+        fileTypeErrorCallback: function(){
+            console.log("文件类型错误：", arguments);
+        }
+    });
+
+    console.log(uploader.html());
+    console.log(uploader.kinerFileUploader);
+
+</script>
+
+</body>
+</html>

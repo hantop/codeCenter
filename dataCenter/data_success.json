@@ -1,0 +1,14 @@
+{
+  "success":true,
+  "msg": "成功",
+  "data": [
+    {
+      "name" : "kiner",
+      "age" : 21
+    },
+    {
+      "name": "kanger",
+      "age" : 20
+    }
+  ]
+}

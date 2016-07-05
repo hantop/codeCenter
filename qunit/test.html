@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>then</title>
+    <link rel="stylesheet" href="qunit-1.23.1.css">
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="qunit-1.23.1.js"></script>
+    <script src="lib.js"></script>
+
+    <!--<script src="test.js"></script>-->
+    <style>
+        #result{
+            background-color: #C6E746;
+            color: #3c510c;
+            font-size: 16px;
+            padding: 5px 5px 5px 30px;
+            font-weight: bolder;
+            line-height: 1.5;
+        }
+    </style>
+    <script src="projectQunit.js"></script>
+    <script>
+
+//        var str = "122333RR";
+//        var reg = /(.)\1{2,}/g;
+//        console.log("源字符串:"+str,"!结果:",reg.exec(str));
+
+        var i = 0;
+        Test._testPage({
+            actions: [
+                {
+                    name:"测试案例1",
+                    action:function(){
+                        i+=10;
+                        // _.assert.ok(true,"【测试案例1】待测试方法1");
+
+                    },
+                    validateFn:function(){
+                        // _.assert.ok(true,"调用校验是否通过的方法");
+                        return i>=10;
+                    },
+                    success:function(){
+                        // _.assert.ok(true,"【测试案例1】测试通过")
+                    },
+                    fail:function(){
+                        // _.assert.ok(false,"【测试案例1】测试未通过")
+                    },
+                    completed:function(){
+                        // _.assert.ok(true,"【测试案例1】测试完成")
+                    }
+                },
+                {
+                    name:"测试案例2",
+                    action:function(){
+                        i+=10;
+//                        var a = my/10
+                        // _.assert.ok(true,"【测试案例1】待测试方法1");
+
+                    },
+                    validateFn:function(){
+                        // _.assert.ok(true,"调用校验是否通过的方法");
+                        return i>10;
+                    },
+                    success:function(){
+                        // _.assert.ok(true,"【测试案例1】测试通过")
+                    },
+                    fail:function(){
+                        // _.assert.ok(false,"【测试案例1】测试未通过")
+                    },
+                    completed:function(){
+                        // _.assert.ok(true,"【测试案例1】测试完成")
+                    }
+                }
+            ]
+        });
+        Test._testPageAsync({
+            actions: [
+                {
+                    name:"测试案例3",
+                    action:function(action){
+
+                        window.Test.setState(action.id,window.Test._status.started);
+                        window.Test.setState(action.id,window.Test._status.donging);
+                        Util.ajax("test2.html",null,"get").success(function(data){
+                            window.Test.setState(action.id,window.Test._status.success,data);
+                        }).error(function(){
+                            window.Test.setState(action.id,window.Test._status.failed,arguments);
+                        }).complete(function(){
+                            window.Test.setState(action.id,window.Test._status.completed);
+                        });
+
+
+                    },
+                    validateFn:function(data){
+                        return true;
+                    },
+                    success:function(){
+                    },
+                    fail:function(){
+                    },
+                    completed:function(){
+                    }
+                },
+                {
+                    name:"测试案例4",
+                    action:function(action){
+                        $.ajax({
+                            url:"test3.html",
+                            dataType:"text",
+                            type:"get",
+                            beforeSend:function(){
+                                window.Test.setState(action.id,window.Test._status.started);
+                                window.Test.setState(action.id,window.Test._status.donging);
+                            },
+                            success:function(data){
+                                window.Test.setState(action.id,window.Test._status.success,data);
+                            },
+                            error:function(){
+                                window.Test.setState(action.id,window.Test._status.failed,arguments);
+                            },
+                            complete:function(){
+                                window.Test.setState(action.id,window.Test._status.completed);
+                            }
+                        });
+
+                    },
+                    validateFn:function(data){
+                        var reg = /<[^>]+>/g;
+                        return reg.test(data);
+                    },
+                    success:function(){
+                    },
+                    fail:function(){
+                    },
+                    completed:function(){
+                    }
+                },
+                {
+                    id: "testWait",
+                    name: "延迟器测试",
+                    action: function(action){
+                        window.Test.setState(action.id,window.Test._status.started);
+                        window.Test.setState(action.id,window.Test._status.doing);
+                        Util.wait(3000).then(function(){
+                            var str = "延迟3秒";
+                            window.Test.setState(action.id,window.Test._status.success,str);
+                            window.Test.setState(action.id,window.Test._status.completed);
+                        });
+                    }
+                },
+                {
+                    id: "testTask",
+                    name: "定时器设置",
+                    action: function(action){
+                        window.Test.setState(action.id,window.Test._status.started);
+                        Util.task(1000,function(num){
+                            return num>=10;
+                        }).progress(function(num){
+                            window.Test.setState(action.id,window.Test._status.doing,"计时："+num);
+                        }).done(function(num){
+                            window.Test.setState(action.id,window.Test._status.success,"计时时长："+num+"秒");
+                            window.Test.setState(action.id,window.Test._status.completed);
+                        });
+                    }
+                },
+                {
+                    id: "ajaxSuccess",
+                    name:"网络请求成功",
+                    action:function(action){
+
+                        window.Test.setState(action.id,window.Test._status.started);
+                        window.Test.setState(action.id,window.Test._status.donging);
+                        Util.ajax("../dataCenter/data_success.json",null,"get","json").success(function(data){
+                            window.Test.setState(action.id,window.Test._status.success,data);
+                        }).error(function(){
+                            window.Test.setState(action.id,window.Test._status.failed,arguments);
+                        }).complete(function(){
+                            window.Test.setState(action.id,window.Test._status.completed);
+                        });
+
+
+                    },
+                    validateFn:function(data){
+                        return data.success;
+                    },
+                    success:function(data){
+
+                    },
+                    fail:function(){
+                    },
+                    completed:function(){
+                    }
+                },
+                {
+                    id: "ajaxFail",
+                    name:"网络请求失败",
+                    action:function(action){
+                        window.Test.setState(action.id,window.Test._status.started);
+                        window.Test.setState(action.id,window.Test._status.donging);
+                        Util.ajax("../dataCenter/data_fail.json",null,"get","json").success(function(data){
+                            window.Test.setState(action.id,window.Test._status.success,data);
+                        }).error(function(){
+                            window.Test.setState(action.id,window.Test._status.failed,arguments);
+                        }).complete(function(){
+                            window.Test.setState(action.id,window.Test._status.completed);
+                        });
+                    },
+                    validateFn:function(data){
+                        return data.success;
+                    },
+                    success:function(data){
+
+                    },
+                    fail:function(){
+                    },
+                    completed:function(){
+                    }
+                }
+
+            ]
+        });
+    </script>
+</head>
+<body>
+
+<h1 id="qunit-header">QUnit测试</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="result"></div>
+<div id="qunit-fixture">测试标记</div>
+</body>
+</html>

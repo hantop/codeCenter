@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>kinerTreeMenu</title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="kinerTreeMenu.js"></script>
+    <script src="menuData.js"></script>
+    <link rel="stylesheet" href="kinerTreeMenu.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body style="overflow: hidden;">
+<div class="mainTitle">
+
+    <div class="btngroup">
+        <button id="open">打开所有</button>
+        <button id="close">关闭所有</button>
+        <button id="open2">打开所有2</button>
+        <button id="close2">关闭所有2</button>
+    </div>
+    <h2>KinerTreeMenu</h2>
+</div>
+<div class="box" id="box">
+
+
+</div>
+<div class="box" id="box2">
+
+
+</div>
+<div class="panel" id="panel" style="width: 60%">
+    <!--<div class="panel" id="panel" style="width: 80%">-->
+
+</div>
+<script>
+
+    document.getElementById('box').style.height = (document.documentElement.clientHeight - 80) + "px";
+    document.getElementById('box2').style.height = (document.documentElement.clientHeight - 80) + "px";
+    var panel = document.getElementById('panel');
+
+
+    /****************************原生js实现方式   start*********************************************/
+    //若项目未使用jquery则使用原生js方法
+    var menu = new kinerTreeMenu({
+        target: "#box",
+        /**
+         * 渲染菜单时回调，属于全局函数，优先级比data中的beforeRender低,若配置类data中的beforeRender,则本回调不生效，
+         * @param ele   当前菜单项内容显示区域的dom对象
+         * @param data  当前菜单项对应的原始数据
+         * @param level 当前菜单项的等级
+         * @returns {*}当前菜单项内容显示区域的dom对象
+         */
+        beforeRender: function (ele, data, level) {
+            ele.innerHTML = "菜单[" + level + "]";
+            return ele;
+        },
+        /**
+         * 当单击菜单项时触发，属于全局，当单击菜单项时，先执行此函数，再执行data中的action,两个action可同时定义，只不过需注意先后顺序
+         * @param ele   当前菜单项内容显示区域的dom对象
+         * @param data  当前菜单项对应的原始数据
+         * @param parentData   当前菜单项的父级菜单原始数据
+         * @param link  若有配置link数据则返回当前菜单项对应的link数据
+         */
+        action: function (ele, data, parentData, link) {
+            console.log("菜单1：",arguments);
+            var menuId = this.opt.id;
+            console.log(menuId);
+            if (data.id == "kinerMenuItem1") {
+                panel.innerHTML = "<h3 style='text-align: center; font-size: 2rem; color: orangered; display: block; height: 100%;  margin-top: 2rem;'>欢迎使用KinerTreeMenu!<br/>这是菜单1</h3>";
+            }
+            if (link) {
+                panel.innerHTML = "";
+                var iFrame = document.createElement('iframe');
+                iFrame.src = link;
+                panel.appendChild(iFrame);
+
+            } else {
+                if (data.subMenus && data.subMenus.length != 0) {
+
+                } else {
+                    panel.innerHTML = "<h3 style='text-align: center; font-size: 2rem'>" + data.title + "</h3>";
+                }
+            }
+        },
+
+        title:{
+            icon:"icon.png",
+            text: "菜单1",
+            action:function(ele,data,link){
+                alert('这是菜单1:'+link);
+            },
+            link:"https://www.baidu.com",
+            subText:"菜单1的描述"
+        },
+        //菜单项数据
+        data: menuData
+    });
+    console.log("菜单1：",menu);
+
+    document.getElementById('open').onclick = function () {
+        var id = menu.getIdByIndex(kinerTreeMenu.FIRST_MENU);
+        menu.openAll(id);
+        console.log(menu.openedList(id));
+        console.log(menu.closeedList(id));
+    };
+    document.getElementById('close').onclick = function () {
+        var id = menu.getIdByIndex(kinerTreeMenu.FIRST_MENU);
+        console.log(id);
+        menu.closeAll(id);
+        console.log(menu.openedList(id));
+        console.log(menu.closeedList(id));
+    };
+    /****************************原生js实现方式   end*********************************************/
+
+
+
+    /****************************jquery实现方式   start*********************************************/
+    //若项目中有用到jquery,则可用jquery绑定方式
+    var menu2 = $('#box2').kinerTreeMenu({
+        /**
+         * 渲染菜单时回调，属于全局函数，优先级比data中的beforeRender低,若配置类data中的beforeRender,则本回调不生效，
+         * @param ele   当前菜单项内容显示区域的dom对象
+         * @param data  当前菜单项对应的原始数据
+         * @param level 当前菜单项的等级
+         * @returns {*}当前菜单项内容显示区域的dom对象
+         */
+        beforeRender: function (ele, data, level) {
+            ele.innerHTML = "菜单<" + level + ">";
+            return ele;
+        },
+        /**
+         * 当单击菜单项时触发，属于全局，当单击菜单项时，先执行此函数，再执行data中的action,两个action可同时定义，只不过需注意先后顺序
+         * @param ele   当前菜单项内容显示区域的dom对象
+         * @param data  当前菜单项对应的原始数据
+         * @param parentData   当前菜单项的父级菜单原始数据
+         * @param link  若有配置link数据则返回当前菜单项对应的link数据
+         */
+        action: function (ele, data, parentData, link) {
+            console.log("菜单2：",arguments);
+            var menuId = this.opt.id;
+            console.log(menuId);
+            if (data.id == "kinerMenuItem2") {
+                panel.innerHTML = "<h3 style='text-align: center; font-size: 2rem; color: orangered; display: block; height: 100%;  margin-top: 2rem;'>欢迎使用KinerTreeMenu!<br/>这是菜单2</h3>";
+            }
+            if (link) {
+                panel.innerHTML = "";
+                var iFrame = document.createElement('iframe');
+                iFrame.src = link;
+                panel.appendChild(iFrame);
+
+            } else {
+                if (data.subMenus && data.subMenus.length != 0) {
+
+                } else {
+                    panel.innerHTML = "<h3 style='text-align: center; font-size: 2rem'>" + data.title + "</h3>";
+                }
+            }
+        },
+        title:{
+            text: "菜单2",
+            action:function(ele,data,link){
+                alert('这是菜单2:'+link);
+            },
+            link:"https://www.qq.com",
+            subText:"菜单2的描述"
+        },
+        //菜单项数据
+        data: menuData2
+    });
+    console.log("菜单2：",menu2);
+    document.getElementById('open2').onclick = function () {
+        var id = menu2.getIdByIndex(1);
+        console.log(id);
+        menu2.openAll(id);
+    };
+    document.getElementById('close2').onclick = function () {
+        var id = menu2.getIdByIndex(1);
+        console.log(id);
+        menu2.closeAll(id);
+
+    };
+    /****************************jquery实现方式   end*********************************************/
+
+</script>
+</body>
+</html>
