@@ -19,20 +19,24 @@ if(!window["console"]){
     };
 }
 
-
 window.isDownloadFlash = false;
+
 ;(function ($, win, doc) {
+
     win.KinerFileUploader = win.KinerFileUploader || function (options) {
             this.opt = $.extend(true, {}, options);
         };
+
     win.KinerFileUploader.config = {
         scriptBasePath: "./lib",
         swfBasePath: "./lib",
         styleBasePath: "./lib"
     };
+
     win.KinerFileUploader.setConfig = function (opt) {
         win.KinerFileUploader.config = $.extend(true, {}, win.KinerFileUploader.config, opt);
     };
+
     win.KinerFileUploader.ready = function (conf, callback) {
         var args = arguments;
         if (args.length == 1 && $.isFunction(args[0])) {
@@ -67,7 +71,6 @@ window.isDownloadFlash = false;
         callback && callback.call(KinerFileUploader, $, win, doc, new KinerFileUploader());
 
     };
-
 
     win.KinerFileUploader.prototype.init = function (options) {
         this.opt = $.extend(true, {}, options);
@@ -131,8 +134,6 @@ window.isDownloadFlash = false;
             }
             that.opt.allCallback && that.opt.allCallback.apply(that, args);
             if (state == "ready") {
-
-
                 var attr = {};
                 if (that.opt.extensions) {
                     var extensions = that.opt.extensions.split(",");
