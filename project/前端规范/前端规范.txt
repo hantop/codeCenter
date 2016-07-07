@@ -1,0 +1,59 @@
+前端规范
+
+一、文件规范
+
+	1.html规范
+	
+		（1）html统一采用html5规范，在所有html页面代码第一行添加<!DOCTYPE html>生命（若为jsp则以jsp规范为准）
+		
+		（2）页面标签均采用小写标签，可使用自定义标签，所有可闭标签必须关闭，如p标签，而所有自闭标签必须在末尾添加"/",如<input type="text"/>
+		
+		（3）如非必要，所有引入script标签放在body标签最后，所有link标签放在页面头部的head标签
+		
+	2.css规范
+	
+		（1）所有css文件头部必须在头部增加【@charset "UTF-8";】
+		
+		（2）命名时采用‘-’连接，如 header-img
+		
+		
+	3.javascript规范
+	
+		（1）方法和变量名采用驼峰命名方式
+		
+		（2）所有js头部必须添加详细注释，注释内容如下：
+			
+			/**
+			 * 树形菜单
+			 * Created by kiner on 2016-05-18.
+			 */
+
+		
+		（3）所有方法必须添加必要注释，描述方法的用途以及方法的创建者、创建日期、修改者、修改日期、参数描述等
+		
+		（4）在定义公共控件时候，需使用闭包形式放置代码污染，具体事例如下：
+		
+			;(function(_,win,doc,$){
+			
+				win._ = _;
+				
+				function MyTools(){};
+				
+				MyTools.prototype.init = function(){};
+				
+				win._.MyTools = MyTools;
+			
+			})(window._||{},window,document,$);
+		
+二、目录规范
+
+	│  index.html	【网页文件】
+	│  robots.txt	【网络爬虫排除标准】
+	│
+	├─css			【样式表目录】
+	├─imgs			【图片存放目录】
+	│  └─icons		【网站图标存放目录】
+	├─js			【脚本存放目录】
+	│  └─lib		【公共js库存放目录】
+	└─res			【其他资源文件存放目录】
+	
