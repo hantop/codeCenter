@@ -332,8 +332,7 @@ window.isDownloadFlash = false;
         return WebUploader.Uploader.support();
 
     };
-
-
+    
     if ($) {
 
         $.fn.extend({
