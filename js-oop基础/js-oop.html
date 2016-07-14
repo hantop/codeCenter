@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-oop</title>
+    <script>
+
+        (function(win,doc){
+
+            /**
+             * 人
+             * @desc 父类定义
+             * @param name  姓名
+             * @param age   年龄
+             * @constructor
+             */
+            function Person(name,age){
+                var _name,_age;//私有属性的定义，外部无法访问，只能内部使用
+
+                //对属性进行初始化复制
+                _name = name;
+                _age = age;
+
+                //为定义的属性设置公开的设置和获取值的方法
+                this.getName = function(){
+                    return _name;
+                };
+                this.setName = function(name){
+                    _name = name;
+                };
+                this.getAge = function(){
+                    return _age;
+                };
+                this.setAge = function(age){
+                    _age = age;
+                };
+
+                //定义公共方法执行某些业务
+                this.say = function(msg){
+                    doc.body.innerHTML+="<b style='color: #0c5377;'>"+(_name+"["+_age+"岁]说：</b><em style='color: #333'>‹"+msg+"›</em><br/><br/>");
+                };
+
+            }
+
+            /**
+             * 具体某一个人
+             * @desc 子类的定义与属性方法的继承
+             * @param name  姓名
+             * @param age   年龄
+             * @constructor
+             */
+            function Kiner(name,age){
+
+                //采用apply的方法继承父类的属性和方法
+                Person.apply(this,arguments);
+
+                //重写父类发那个发，是子类可以有自己的特性
+                this.say = function(msg){
+                    alert(name+"["+age+"]说："+msg)
+                };
+
+                //子类独有的方法
+                this.eat = function(food){
+
+                    alert("吃"+food);
+
+                };
+            }
+
+            win.Kiner = Kiner;
+
+            win.Person = Person;
+
+        })(window,document);
+
+
+
+    </script>
+</head>
+<body>
+
+
+<script>
+
+
+    var person1 = new Person("kiner",22);
+    var person2 = new Person("kanger",23);
+
+    var kiner = new Kiner("星河阅卷",21);
+
+
+    console.dir(person1);
+
+    console.log(person1._name);
+    console.log(person1._age);
+    console.log(person2._name);
+    console.log(person2._age);
+
+    console.log(person1.getName());
+    console.log(person1.getAge());
+
+    console.log(person2.getName());
+    console.log(person2.getAge());
+
+    person1.setAge(18);
+    person1.setName("汤文辉");
+
+    console.log(person1.getName());
+    console.log(person1.getAge());
+
+    console.log(person2.getName());
+    console.log(person2.getAge());
+
+    console.log(kiner.getName());
+    console.log(kiner.getAge());
+
+    person1.say("你好");
+    person2.say("很高兴认识你");
+    kiner.say("我叫"+kiner.getName());
+    kiner.eat("香蕉");
+
+</script>
+</body>
+</html>
