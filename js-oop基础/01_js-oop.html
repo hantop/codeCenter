@@ -15,6 +15,7 @@
              * @constructor
              */
             function Person(name,age){
+
                 var _name,_age;//私有属性的定义，外部无法访问，只能内部使用
 
                 //对属性进行初始化复制
@@ -67,9 +68,83 @@
                 };
             }
 
+            /**
+             * 动物类
+             * @param color
+             * @param weight
+             * @constructor
+             */
+            function Animal(name,color, weight) {
+
+                var _color = color,_weight = weight,_name = name;
+
+                this.getColor = function () {
+                    return _color;
+                };
+
+                this.setColor = function (color) {
+                    _color = color;
+                };
+
+                this.setWeight = function (weight) {
+                    _weight = weight;
+                };
+
+                this.getWeight = function () {
+                    return _weight;
+                };
+
+                this.setName = function(name){
+                    _name = name;
+                };
+
+                this.getName = function(){
+                    return name;
+                };
+
+                this.eat = function (food) {
+                    alert(_name+"吃"+food);
+                }
+
+            }
+
+            /**
+             * 奶牛类
+             * @desc  动物类子类
+             * @param name
+             * @param color
+             * @param weight
+             * @constructor
+             */
+            function Cow(name,color, weight) {
+
+                Animal.apply(this,arguments);
+
+                var _milk = "牛奶";
+
+                this.setMilk = function(milk){
+                    _milk = milk;
+                };
+
+                this.getMilk = function(){
+                    return _milk;
+                };
+
+                this.milking = function(){
+                    alert(name+"挤"+_milk);
+                };
+
+            }
+
+
             win.Kiner = Kiner;
 
             win.Person = Person;
+
+            win.Animal = Animal;
+
+            win.Cow = Cow;
+
 
         })(window,document);
 
@@ -85,12 +160,10 @@
 
     var person1 = new Person("kiner",22);
     var person2 = new Person("kanger",23);
-
     var kiner = new Kiner("星河阅卷",21);
 
 
     console.dir(person1);
-
     console.log(person1._name);
     console.log(person1._age);
     console.log(person2._name);
@@ -118,6 +191,15 @@
     person2.say("很高兴认识你");
     kiner.say("我叫"+kiner.getName());
     kiner.eat("香蕉");
+
+
+    var cow = new Cow("奶牛","白色","200kg");
+    cow.eat("草");
+    cow.milking();
+    console.log("颜色："+cow.getColor()+"；体重："+cow.getWeight());
+
+    console.log(cow);
+
 
 </script>
 </body>
