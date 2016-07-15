@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>康儿，我爱你</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+            font-size: 62.5%;
+        }
+        body{
+            padding: 2rem;
+        }
+        .box{
+            border-radius: 1rem;
+        }
+        .message,.say{
+            font-size: 1rem;
+            display: block;
+            padding: 1.5rem .5rem;
+            text-shadow: -1px -1px 2px #fff,1px 1px 2px #000;
+            position: relative;
+            height: 4rem;
+
+        }
+        .message.mine{
+            color: #0c5377;
+            background-color: lightskyblue;
+            border-bottom: dashed 3px dodgerblue;
+            border-radius: 1rem 1rem 25% 0;
+            position: relative;
+            z-index: 1;
+            -webkit-animation: ball 800ms cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+            animation: ball 800ms cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+        }
+        .message.mine:after{
+            content: "";
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            background-color: #333333;
+            border-radius: 1rem;
+            position: absolute;
+            right: 1rem;
+            top: .5rem;
+        }
+        .message.mine:before{
+            content: "";
+            display: block;
+            width: 0.3rem;
+            height: .3rem;
+            background-color: #FFFFFF;
+            border-radius: 80% 61% 76% 10%;
+            position: absolute;
+            right: 1.3rem;
+            top: .7rem;
+            z-index: 9;
+        }
+        .message .tongue{
+            width: 3rem;
+            height: 2rem;
+            background-color: hotpink;
+            position: absolute;
+            border-radius: 100% 50% 50% 0;
+            z-index: 0;
+            transform: rotateX(100deg);
+
+        }
+        .message.mine .tongue{
+            right: 1rem;
+            top: 6rem;
+        }
+        .message.you .tongue{
+            left: .3rem;
+            top: 6rem;
+        }
+        .message.you:after{
+            content: "";
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            background-color: #333333;
+            border-radius: 1rem;
+            position: absolute;
+            left: 1rem;
+            top: .5rem;
+        }
+        .message.you:before{
+            content: "";
+            display: block;
+            width: 0.3rem;
+            height: .3rem;
+            background-color: #FFFFFF;
+            border-radius: 80% 61% 76% 10%;
+            position: absolute;
+            left: 1.3rem;
+            top: .7rem;
+            z-index: 9;
+        }
+        .message.you{
+            color: deeppink;
+            background-color: lightpink;
+            border-radius: 0 0 0 25%;
+            border-bottom: dashed 3px hotpink;
+        }
+        .say:before{
+            content: "‘";
+        }
+        .say:after{
+            content: "’";
+        }
+        .say.mine{
+            color: #0c5377;
+            background-color: lightskyblue;
+            border-radius: 0 25% 0 0;
+            -webkit-animation: ball 800ms cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+            animation: ball 800ms cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+        }
+        .say.you{
+            color: deeppink;
+            background-color: lightpink;
+            border-radius: 0 0 1rem 1rem;
+        }
+
+
+        @-webkit-keyframes ball {
+            0% {
+                -webkit-transform: translateY( 0 );
+                transform: translateY( 0 );
+            }
+            100% {
+                -webkit-transform: translateY( -100px );
+                transform: translateY( -100px );
+            }
+        }
+
+        @keyframes ball {
+            0% {
+                -webkit-transform: translateY( 0 );
+                transform: translateY( 0 );
+            }
+            100% {
+                -webkit-transform: translateY( -100px );
+                transform: translateY( -100px );
+            }
+        }
+
+
+
+    </style>
+    <script>
+
+        /**
+         * 注意：本插件运用了rem屏幕适配方案，一律采用rem作为单位，若项目中不是采用这种方案的，请在kinerTreeMenu.css中修改样式，此段代码不会影响功能使用，仅会影响控件样式
+         */
+        (function (doc, win) {
+            // if (window.isScreenAdpat) {
+            var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        if (!clientWidth) return;
+                        docEl.style.fontSize = 20 * (clientWidth / 720) + 'px';
+                        // win.remDefineCallback&&win.remDefineCallback(clientWidth,720,20);//屏幕宽度  设计图宽度  设计图字体大小
+                    };
+            //alert(doc.addEventListener)
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            //doc.addEventListener('DOMContentLoaded', recalc, false);
+            recalc();
+            // }
+
+        })(document, window);
+
+
+        ;(function(win,doc){
+
+            function I(name){
+
+                var _name = name,_nickname = "王八蛋",_property="丑不垃圾，傻乎乎，榆木脑袋，王八羔子";
+
+                this.getProperty = function(){
+                    return _property;
+                };
+
+                this.setProperty = function(property){
+                    _property = property;
+                };
+                this.setName = function(name){
+                    _name = name;
+                };
+
+                this.getName = function(name){
+                    return _name;
+                };
+
+                this.Love = function(u){
+
+                    if(u instanceof U){
+                        doc.getElementById("box").innerHTML+="<b class='message mine'>我是"+_name+"，我的妻子是"+u.getName()+"，我爱"+u.getName()+"<div class='tongue'></div></b>";
+                    }else{
+                        doc.getElementById("box").innerHTML+="<b class='message mine'>我是"+_name+"，我的性取向没有问题，别来烦我！<div class='tongue'></div></b>";
+                    }
+
+                    return true;
+
+                };
+
+
+                this.say = function(u){
+                    doc.getElementById("box").innerHTML+="<b class='say mine'>"+u.getName()+"，我爱你！</b>";
+                };
+
+            }
+
+            function U(name){
+
+                I.apply(this,arguments);
+
+                var _nickName = "萌萌",_property="冰雪聪明，美丽倾城，善解人意，温柔可爱，贤良淑德";
+
+                this.getProperty = function(){
+                    return _property;
+                };
+
+                this.setProperty = function(property){
+                    _property = property;
+                };
+
+                this.Love = function(i){
+
+                    if(i instanceof I){
+                        doc.getElementById("box").innerHTML += "<b class='message you'>我叫"+name+"，你也可以叫我"+_nickName+"，我的老公是"+i.getName()+"，我也很爱他！<div class='tongue'></div></b>";
+                    }else{
+                        doc.getElementById("box").innerHTML += "<b class='message you'>讨厌，人家喜欢男的啦！<div class='tongue'></div></b>"
+                    }
+
+                    return true;
+                };
+
+                this.say = function(i){
+                    doc.getElementById("box").innerHTML+="<b class='say you'>虽然我"+_property+"，而你又"+i.getProperty()+"，但我还是想对你说："+i.getName()+"，我爱你！</b>";
+                };
+
+            }
+
+            win.I = I;
+            win.U = U;
+
+        })(window,document);
+
+    </script>
+</head>
+<body>
+
+<div class="box" id="box">
+
+
+</div>
+
+</body>
+<script>
+    var i = new I("汤文辉");
+    var me = i;
+    var u = new U("刘康儿");
+
+    if(i.Love(u)){
+        i.say(u);
+    }
+
+    if(u.Love(me)){
+        u.say(me);
+    }
+
+</script>
+</html>
