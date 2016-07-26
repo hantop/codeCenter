@@ -98,8 +98,6 @@ try {
 
         this.getAllId(this.opt.data);
 
-
-
         var target = this.opt.target;
         this.body = this.getEle(target);
 
