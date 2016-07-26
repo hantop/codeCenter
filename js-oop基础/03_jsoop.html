@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03_jsoop</title>
+    <script>
+
+        //1.创建对象
+
+//        var obj = {};
+//
+//        var obj2  = function(){};
+//
+//        function obj3(){
+//
+//        }
+
+        //奶牛
+        function Cow(color,weight){
+
+            var _color = color,_weight = weight,_milk = "牛奶";
+
+            this.getColor = function(){
+                return _color;
+            };
+
+            this.setColor = function(color){
+                _color = color;
+            };
+
+            this.eat = function(food){
+
+                alert("吃"+food);
+
+            };
+
+            this.milking = function(){
+                alert("挤"+_milk);
+            }
+
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+
+
+<script>
+
+    var cow = new Cow("白色","200kg");
+
+    console.log(cow);
+
+    console.log(cow.getColor());
+
+    cow.setColor("黑色");
+
+    console.log(cow.getColor());
+
+
+    cow.eat("草");
+
+    cow.milking();
+
+</script>
+</body>
+</html>

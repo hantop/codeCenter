@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-progress</title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="js-progress.js"></script>
+    <style>
+
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .progress{
+            position: relative;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background: #3E4E5E;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 100px auto;
+        }
+
+        .proBg{
+            position: absolute;
+            width: 0%;
+            height: 100%;
+            background: mediumseagreen;
+            z-index: 1;
+            top: 0;
+            left: 0;
+        }
+        .frontText{
+            position: absolute;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: normal;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="progress" id="pro">
+
+        <div class="proBg"></div>
+        <div class="frontText">0%</div>
+
+    </div>
+
+
+    <script>
+
+        var pro = $('#pro').progress({
+            val: 50,
+            showText:"当前进度为#*val*#%"
+        });
+
+        alert(pro.getVal());
+
+        console.log(pro.html());
+
+        pro.update(25);
+
+
+    </script>
+
+</body>
+</html>
