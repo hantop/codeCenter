@@ -11,6 +11,7 @@ var gulp = require("gulp"),
     clean = require("gulp-clean"),//清理目录
     notify = require("gulp-notify"),//通知方法
     inquirer = require("inquirer"),//选项插件
+    img = require("gulp-imagemin"),//图片压缩
     rev = require('gulp-rev'),//对文件名加md5后缀
     argv = require('yargs').argv,//用于获取启动参数，针对不同参数，切换任务执行过程时需要
     revCollector = require("gulp-rev-collector"),//路径替换
@@ -178,7 +179,12 @@ gulp.task("imgs",function(){
 
     tools.p(config.P_TYPE.INFO,"开始处理图片...");
     gulp.src([basePath+"imgs/**"])
-        // .pipe(plugins.imagemin())
+        // .pipe(img({
+        //     optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+        //     progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+        //     interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+        //     multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
+        // }))
         .pipe(gulp.dest(outputPath+'imgs/'));
 
 });
@@ -267,7 +273,6 @@ gulp.task('logo',["clean"], function (done) {
  */
 gulp.task("default", ["logo"], function (done) {
 
-
     tools.p(config.P_TYPE.INFO, "项目启动...");
 
 });
@@ -289,7 +294,6 @@ gulp.task("dev", ["clean", "sass", "js","html","imgs","browser-sync"], function 
  * 产品导出任务
  */
 gulp.task("product", ["clean", "sass", "js","html","imgs","browser-sync"], function (done) {
-
 
     tools.p(config.P_TYPE.INFO, "启动生产任务...");
     gulp.watch([basePath + "sass/public/*.sass", basePath + "sass/*.sass"], ["sass"]).on('change', browserSync.reload);
