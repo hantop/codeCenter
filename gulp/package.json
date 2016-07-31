@@ -25,6 +25,7 @@
     "colors": "^1.1.2",
     "cross-spawn-async": "^2.2.4",
     "del": "^2.2.1",
+    "fs": "^0.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-clean": "^0.3.2",
@@ -51,12 +52,14 @@
     "gulp-watch": "^4.3.9",
     "imagemin-optipng": "^5.1.1",
     "inquirer": "^1.1.2",
+    "mkdirp": "^0.5.1",
     "optipng-bin": "^3.1.2",
     "rev-hash": "^1.0.0",
     "rev-path": "^1.0.0",
     "run-sequence": "^1.2.2",
     "sort-keys": "^1.1.2",
     "through2": "^2.0.1",
+    "vinyl": "^1.2.0",
     "vinyl-file": "^2.0.0",
     "yargs": "^4.8.1"
   }
