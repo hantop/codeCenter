@@ -1,0 +1,41 @@
+body{
+  background: wheat;
+}
+.radius(@radius:5px){
+  -webkit-border-radius:@radius;
+  -moz-border-radius:@radius;
+  border-radius:@radius;
+}
+.shadow(@x:0,@y:0,@z,@color:#000000){
+  -webkit-box-shadow: @x @y @z @color;
+  -moz-box-shadow: @x @y @z @color;
+  box-shadow: @x @y @z @color;
+}
+.inset_shadow(@x:0,@y:0,@z,@color:#000000){
+  -webkit-box-shadow: inset @x @y @z @color;
+  -moz-box-shadow: inset @x @y @z @color;
+  box-shadow: inset @x @y @z @color;
+}
+.userSelect{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn{
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  margin: 100px auto;
+  .radius(10px);
+  .shadow(0,0,5px,#000000);
+  .userSelect();
+  background: cadetblue;
+  color: white;
+  line-height: 50px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn:hover{
+  .inset_shadow(0,0,15px,#666666);
+}

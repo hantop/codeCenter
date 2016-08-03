@@ -387,8 +387,6 @@ gulp.task('logo',[], function (done) {
                         message: "请选择已有项目\n",
                         choices: projects,
                         filter: function (val) { //过滤器
-
-
                             return val.toLowerCase();  //toLowerCase()方法将val返回一个字符串，该字符串中的字母被转换为小写字母
                         }
                     });

@@ -1,0 +1,19 @@
+{
+    "projectList": [
+        {
+            "name": "kinerTreeMenu",
+            "index": "kinerTreeMenu.html",
+            "desc": "我的树形菜单"
+        },
+        {
+            "name": "testLess",
+            "index": "test.html",
+            "desc": "Less测试"
+        },
+        {
+            "name": "testSass",
+            "index": "test.html",
+            "desc": "Sass测试"
+        }
+    ]
+}
