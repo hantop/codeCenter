@@ -6,6 +6,7 @@
 
 var fs = require('fs'),//文件操作
     mkdirp = require("mkdirp");//目录操作
+var getTime = require("./Time.js");
 
 var File = function (options) {
 
@@ -43,7 +44,7 @@ File.prototype.save = function (content, bAppend, encoding) {
                     if(err){
                         throw err;
                     }
-                    console.log('文件成功关闭...');
+                    console.log("["+getTime()+"]文件保存陈功，文件流成功关闭...");
                 })
             };
             fs.write(fd, buffer, 0, buffer.length, 0, cb2);
@@ -87,7 +88,7 @@ File.prototype.mkdir = function (path, mode, fn, prefix) {
                 }
             } else {
                 console.log(err);
-                console.log('创建目录:' + sPath + '失败');
+                console.log('['+getTime()+']创建目录:' + sPath + '失败');
             }
         });
     };

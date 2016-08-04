@@ -11,6 +11,7 @@ var cheerio = require('cheerio');
 var iconv = require('iconv-lite');
 var BufferHelper = require("bufferhelper");
 var request = require('request');
+var getTime = require("./Time.js");
 
 var oResult = {
     aNewURLQueue: [],//尚未执行爬取任务的队列
@@ -21,6 +22,8 @@ var oResult = {
     iCount: 0,//爬取url总数
     iSuccessNum: 0//爬取成功数
 };
+
+
 
 
 
@@ -52,7 +55,7 @@ var Robot = function (options) {
     oResult.aNewURLQueue.push(this.firstUrl);//将第一个url添加进队列之中
 
     this.handlerComplete = options.handlerComplete || function(){//队列中所有的url均抓取完毕时执行回调
-            console.log("抓取结束...");
+            console.log("["+getTime()+"]抓取结束...");
 
 
             var str = "",i= 0,len=oResult.aTargetURLList.length;
@@ -60,13 +63,13 @@ var Robot = function (options) {
             for(i=0;i<len;i++){
 
                 url = oResult.aTargetURLList[i];
-                str+="（"+oResult.oTargetInfoList[url].name+"） : "+url+"\n"
+                str+="["+getTime()+"]（"+oResult.oTargetInfoList[url].name+"） : "+url+"\n"
 
             }
             this.file.save(str,true);
 
 
-            this.file.save("\n抓取完成...\n",true);
+            this.file.save("\n["+getTime()+"]抓取完成...\n",true);
         };
 
     this.disAllowArr = [];//不允许爬取路径
@@ -162,7 +165,7 @@ Robot.prototype.go = function (callback) {
 
         }else{
 
-            console.log("禁止爬取页面："+url);
+            console.log("["+getTime()+"]禁止爬取页面："+url);
 
         }
 
@@ -211,7 +214,7 @@ Robot.prototype.send = function(url,callback){
         res.on('end',function(){ //获取数据结束
             clearTimeout(timeoutEvent);
 
-            self.debug && console.log("\n抓取URL:"+url+"成功\n");
+            self.debug && console.log("\n["+getTime()+"]抓取URL:"+url+"成功\n");
 
             //将拉取的数据进行转码，具体编码跟需爬去数据的目标网站一致
             data = iconv.decode(bufferHelper.toBuffer(),self.encoding);
@@ -225,14 +228,14 @@ Robot.prototype.send = function(url,callback){
         res.on('error',function(){
             clearTimeout(timeoutEvent);
             self.handlerFailure(url);
-            self.debug && console.log("服务器端响应失败URL:"+url+"\n");
+            self.debug && console.log("["+getTime()+"]服务器端响应失败URL:"+url+"\n");
         });
     }).on('error',function(err){
         clearTimeout(timeoutEvent);
         self.handlerFailure(url);
-        self.debug && console.log("\n抓取URL:"+url+"失败\n");
+        self.debug && console.log("\n["+getTime()+"]抓取URL:"+url+"失败\n");
     }).on('finish',function(){//调用END方法之后触发
-        self.debug && console.log("\n开始抓取URL:"+url+"\n");
+        self.debug && console.log("\n["+getTime()+"]开始抓取URL:"+url+"\n");
     });
     req.on("timeout", function() {
         //对访问超时的资源，进行指定次数的重新抓取，当抓取次数达到预定次数后将不在抓取改url下的数据
@@ -240,7 +243,7 @@ Robot.prototype.send = function(url,callback){
             oResult.oRetryCount[url] = 0;
         }else if(oResult.oRetryCount[url]!=undefined&&oResult.oRetryCount[url]<self.retryNum){
             oResult.oRetryCount[url]++;
-            console.log("请求超时，调度到队列最后...");
+            console.log("["+getTime()+"]请求超时，调度到队列最后...");
             oResult.aNewURLQueue.unshift(url);
         }
         if (req.res) {
@@ -280,7 +283,7 @@ Robot.prototype.setOpt = function(options){
     oResult.aNewURLQueue.push(this.firstUrl);//将第一个url添加进队列之中
 
     this.handlerComplete = options.handlerComplete || this.handlerComplete || function(){
-            console.log("抓取结束...");
+            console.log("["+getTime()+"]抓取结束...");
 
 
             var str = "",i= 0,len=oResult.aTargetURLList.length;
@@ -294,7 +297,7 @@ Robot.prototype.setOpt = function(options){
             this.file.save(str,true);
 
 
-            this.file.save("\n抓取完成...\n",true);
+            this.file.save("\n["+getTime()+"]抓取完成...\n",true);
         };
 
 
