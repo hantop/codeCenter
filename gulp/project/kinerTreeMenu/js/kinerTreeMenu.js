@@ -2,7 +2,6 @@
  * 树形菜单
  * Created by kiner on 2016-05-18.
  */
-
 try {
     $.trim("");
 } catch (e) {

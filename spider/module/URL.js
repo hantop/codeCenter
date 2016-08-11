@@ -116,4 +116,4 @@ URL.prototype.fix = function(url,url2){
 
 
 
-module.exports = URL;
+module.exports.URL = URL;

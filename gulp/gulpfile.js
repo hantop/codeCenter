@@ -483,6 +483,7 @@ gulp.task('logo',[], function (done) {
                             }
 
                             gulp.start(devModel);
+                            //gulp.start("browser-sync");
 
                             console.log("\n\n项目启动成功~O(∩_∩)O开发场景：" + devModel.cyan + "  (⊙o⊙)…项目名称：" + answers.projectName.cyan+"，项目首页："+index.cyan+"\n\n");
                         } else {

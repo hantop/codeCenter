@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js冒泡排序</title>
+
+    <script>
+
+        var arr = [2,5,1,3,18,11,98,66,4];
+
+        function sort(arr){
+
+            var i= 0,len = arr.length,j,temp;
+
+            for(;i<len;i++){
+
+                for(j=0;j<len;j++){
+
+                    if(arr[i] < arr[j]){
+                        temp = arr[j];
+                        arr[j] = arr[i];
+                        arr[i] = temp;
+                    }
+
+                }
+
+            }
+
+            return arr;
+
+        }
+
+        console.log(sort(arr));
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

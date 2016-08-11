@@ -2,8 +2,8 @@
  * Created by 汤文辉 on 2016-08-04.
  */
 
-function getTime(type){
-    var date = new Date();
+function getTime(type,date){
+    date = date || (new Date());
     var y = date.getFullYear();
     var m = date.getMonth()+1;
     var d = date.getDate();

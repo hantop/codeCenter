@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3瀑布流2</title>
+
+    <style>
+
+        .container{
+            -webkit-column-width: 300px;
+            -moz-column-width:300px;
+            column-width:300px;
+            -webkit-column-gap:1px;
+            -moz-column-gap:1px;
+            column-gap:1px;
+        }
+
+        .item{
+            width: 297px;
+            background-color: dodgerblue;
+            border-radius: 10px;
+            color: #D9D9D9;
+            text-align: center;
+            margin: 5px;
+            position: relative;
+            display: inline-block;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="item" style="height:100px"></div>
+        <div class="item" style="height:120px"></div>
+        <div class="item" style="height:150px"></div>
+        <div class="item" style="height:127px"></div>
+        <div class="item" style="height:233px"></div>
+        <div class="item" style="height:142px"></div>
+        <div class="item" style="height:159px"></div>
+        <div class="item" style="height:266px"></div>
+        <div class="item" style="height:188px"></div>
+        <div class="item" style="height:122px"></div>
+
+
+    </div>
+
+</body>
+</html>

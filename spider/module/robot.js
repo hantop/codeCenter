@@ -3,8 +3,8 @@
  * Created by 汤文辉 on 2016-08-02.
  */
 
-var File = require("./File.js");
-var URL = require("./URL.js");
+var mFile = require("./File.js");
+var mURL = require("./URL.js");
 var http = require("http");
 var https = require("https");
 var cheerio = require('cheerio');
@@ -14,13 +14,13 @@ var request = require('request');
 var getTime = require("./Time.js");
 
 var oResult = {
-    aNewURLQueue: [],//尚未执行爬取任务的队列
-    aOldURLQueue: [],//已完成爬取任务的队列
-    aTargetURLList: [],//目标对象URL集合
-    oTargetInfoList: {},//目标对象集合
-    oRetryCount:{},//失败重试记录
-    iCount: 0,//爬取url总数
-    iSuccessNum: 0//爬取成功数
+    aNewURLQueue: [], //尚未执行爬取任务的队列
+    aOldURLQueue: [], //已完成爬取任务的队列
+    aTargetURLList: [], //目标对象URL集合
+    oTargetInfoList: {}, //目标对象集合
+    oRetryCount: {}, //失败重试记录
+    iCount: 0, //爬取url总数
+    iSuccessNum: 0 //爬取成功数
 };
 
 
@@ -32,51 +32,57 @@ var oResult = {
  * @param options
  * @constructor
  */
-var Robot = function (options) {
+var Robot = function(options) {
 
     var self = this;
-    this.domain = options.domain || "";//需要爬取网站的域名
-    this.firstUrl = options.firstUrl || "";//需要爬取网站的url
-    this.id = this.constructor.create();//唯一标识符
-    this.encoding = options.encoding || "UTF-8";//页面编码
-    this.outputPath = options.outputPath || "";//爬取内容存放路径
-    this.outputFileName = options.outputFileName || "result.txt";//结果保存文件名
-    this.timeout = options.timeout || 5000;//超时时间
-    this.retryNum = options.retryNum || 5;//失败重试次数
-    this.robots = options.robots || true;//是否读取robots.txt文件
+    this.domain = options.domain || ""; //需要爬取网站的域名
+    this.firstUrl = options.firstUrl || ""; //需要爬取网站的url
+    this.id = this.constructor.create(); //唯一标识符
+    this.encoding = options.encoding || "UTF-8"; //页面编码
+    this.outputPath = options.outputPath || ""; //爬取内容存放路径
+    this.outputFileName = options.outputFileName || "result.txt"; //结果保存文件名
+    this.timeout = options.timeout || 5000; //超时时间
+    this.retryNum = options.retryNum || 5; //失败重试次数
+    this.robots = options.robots || true; //是否读取robots.txt文件
 
-    this.debug = options.debug || false;//是否开启调试模式
+    this.debug = options.debug || false; //是否开启调试模式
 
-    this.file = new File({
+
+    this.file = new mFile.File({
         path: this.outputPath,
         filename: this.outputFileName
     });
 
-    oResult.aNewURLQueue.push(this.firstUrl);//将第一个url添加进队列之中
 
-    this.handlerComplete = options.handlerComplete || function(){//队列中所有的url均抓取完毕时执行回调
-            console.log("["+getTime()+"]抓取结束...");
+    this.urlTools = mURL.URL;
 
+    oResult.aNewURLQueue.push(this.firstUrl); //将第一个url添加进队列之中
 
-            var str = "",i= 0,len=oResult.aTargetURLList.length;
-
-            for(i=0;i<len;i++){
-
-                url = oResult.aTargetURLList[i];
-                str+="["+getTime()+"]（"+oResult.oTargetInfoList[url].name+"） : "+url+"\n"
-
-            }
-            this.file.save(str,true);
+    this.handlerComplete = options.handlerComplete || function() { //队列中所有的url均抓取完毕时执行回调
+        console.log("[" + getTime() + "]抓取结束...");
 
 
-            this.file.save("\n["+getTime()+"]抓取完成...\n",true);
-        };
+        var str = "",
+            i = 0,
+            len = oResult.aTargetURLList.length;
 
-    this.disAllowArr = [];//不允许爬取路径
+        for (i = 0; i < len; i++) {
 
-    var robotsURL = this.firstUrl+"robots.txt";
+            url = oResult.aTargetURLList[i];
+            str += "[" + getTime() + "]（" + oResult.oTargetInfoList[url].name + "） : " + url + "\n";
 
-    request(robotsURL,function(error, response, body){
+        }
+        this.file.save(str, true);
+
+
+        this.file.save("\n[" + getTime() + "]抓取完成...\n", true);
+    };
+
+    this.disAllowArr = []; //不允许爬取路径
+
+    var robotsURL = this.firstUrl + "robots.txt";
+
+    request(robotsURL, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             this.disAllowArr = self.parseRobots(body);
         }
@@ -95,7 +101,7 @@ Robot.id = 1;
  * 累加唯一标识
  * @returns {number}
  */
-Robot.create = function () {
+Robot.create = function() {
     return this.id++;
 };
 
@@ -104,17 +110,19 @@ Robot.create = function () {
  * @param str
  * @returns {Array}
  */
-Robot.prototype.parseRobots = function(str){
+Robot.prototype.parseRobots = function(str) {
 
     var line = str.split("\r\n");
 
-    var i= 0,len=line.length,arr = [];
+    var i = 0,
+        len = line.length,
+        arr = [];
 
-    for(i=0;i<len;i++){
+    for (i = 0; i < len; i++) {
 
-        if(line[i].indexOf("Disallow:")!=-1){
+        if (line[i].indexOf("Disallow:") != -1) {
 
-            arr.push(line[i].split(":")[1].trim())
+            arr.push(line[i].split(":")[1].trim());
 
         }
 
@@ -129,12 +137,13 @@ Robot.prototype.parseRobots = function(str){
  * @param url
  * @returns {boolean}
  */
-Robot.prototype.isAllow = function(url){
+Robot.prototype.isAllow = function(url) {
 
-    var i= 0,len=this.disAllowArr.length;
-    for(i=0;i<len;i++){
+    var i = 0,
+        len = this.disAllowArr.length;
+    for (i = 0; i < len; i++) {
 
-        if(url.toLowerCase().indexOf(this.disAllowArr[i].toLowerCase())!=-1){
+        if (url.toLowerCase().indexOf(this.disAllowArr[i].toLowerCase()) != -1) {
             return false;
         }
 
@@ -147,33 +156,33 @@ Robot.prototype.isAllow = function(url){
 /**
  * 开启爬虫任务
  */
-Robot.prototype.go = function (callback) {
+Robot.prototype.go = function(callback) {
 
     var url = "";
 
-    if(oResult.aNewURLQueue.length>0){
+    if (oResult.aNewURLQueue.length > 0) {
 
         url = oResult.aNewURLQueue.pop();
 
-        if(this.robots&&this.isAllow(url)){
+        if (this.robots && this.isAllow(url) && this.urlTools.isValidPart(url)) {
 
-            this.send(url,callback);
+            this.send(url, callback);
 
             oResult.iCount++;
 
             oResult.aOldURLQueue.push(url);
 
-        }else{
+        } else {
 
-            console.log("["+getTime()+"]禁止爬取页面："+url);
+            console.log("[" + getTime() + "]禁止爬取页面：" + url);
 
         }
 
 
 
-    }else{
+    } else {
 
-        this.handlerComplete.call(this,oResult,this.file);
+        this.handlerComplete.call(this, oResult, this.file);
 
     }
 
@@ -184,14 +193,14 @@ Robot.prototype.go = function (callback) {
  * @param url   请求链接
  * @param callback  请求网页成功回调
  */
-Robot.prototype.send = function(url,callback){
+Robot.prototype.send = function(url, callback) {
 
     var self = this;
 
-    var timeoutEvent;//由于nodejs不支持timeout,所以，需要自己手动实现
+    var timeoutEvent; //由于nodejs不支持timeout,所以，需要自己手动实现
 
     var req = '';
-    if(url.indexOf("https") > -1){
+    if (url.indexOf("https") > -1) {
         req = https.request(url);
     } else {
         req = http.request(url);
@@ -201,49 +210,48 @@ Robot.prototype.send = function(url,callback){
         req.emit("timeout");
     }, this.timeout);
 
-    req.on('response',function(res){
+    req.on('response', function(res) {
         var aType = self.getResourceType(res.headers["content-type"]);
         var bufferHelper = new BufferHelper();
-        if(aType[2] !== "binary"){
-        } else {
+        if (aType[2] !== "binary") {} else {
             res.setEncoding("binary");
         }
-        res.on('data',function(chunk){
+        res.on('data', function(chunk) {
             bufferHelper.concat(chunk);
         });
-        res.on('end',function(){ //获取数据结束
+        res.on('end', function() { //获取数据结束
             clearTimeout(timeoutEvent);
 
-            self.debug && console.log("\n["+getTime()+"]抓取URL:"+url+"成功\n");
+            self.debug && console.log("\n[" + getTime() + "]抓取URL:" + url + "成功\n");
 
             //将拉取的数据进行转码，具体编码跟需爬去数据的目标网站一致
-            data = iconv.decode(bufferHelper.toBuffer(),self.encoding);
+            data = iconv.decode(bufferHelper.toBuffer(), self.encoding);
 
             //触发成功回调
-            self.handlerSuccess(data,aType,url,callback);
+            self.handlerSuccess(data, aType, url, callback);
 
             //回收变量
             data = null;
         });
-        res.on('error',function(){
+        res.on('error', function() {
             clearTimeout(timeoutEvent);
             self.handlerFailure(url);
-            self.debug && console.log("["+getTime()+"]服务器端响应失败URL:"+url+"\n");
+            self.debug && console.log("[" + getTime() + "]服务器端响应失败URL:" + url + "\n");
         });
-    }).on('error',function(err){
+    }).on('error', function(err) {
         clearTimeout(timeoutEvent);
         self.handlerFailure(url);
-        self.debug && console.log("\n["+getTime()+"]抓取URL:"+url+"失败\n");
-    }).on('finish',function(){//调用END方法之后触发
-        self.debug && console.log("\n["+getTime()+"]开始抓取URL:"+url+"\n");
+        self.debug && console.log("\n[" + getTime() + "]抓取URL:" + url + "失败\n");
+    }).on('finish', function() { //调用END方法之后触发
+        self.debug && console.log("\n[" + getTime() + "]开始抓取URL:" + url + "\n");
     });
     req.on("timeout", function() {
         //对访问超时的资源，进行指定次数的重新抓取，当抓取次数达到预定次数后将不在抓取改url下的数据
-        if(oResult.oRetryCount[url]==undefined){
+        if (oResult.oRetryCount[url] == undefined) {
             oResult.oRetryCount[url] = 0;
-        }else if(oResult.oRetryCount[url]!=undefined&&oResult.oRetryCount[url]<self.retryNum){
+        } else if (oResult.oRetryCount[url] != undefined && oResult.oRetryCount[url] < self.retryNum) {
             oResult.oRetryCount[url]++;
-            console.log("["+getTime()+"]请求超时，调度到队列最后...");
+            console.log("[" + getTime() + "]请求超时，调度到队列最后...");
             oResult.aNewURLQueue.unshift(url);
         }
         if (req.res) {
@@ -253,7 +261,7 @@ Robot.prototype.send = function(url,callback){
         req.abort();
     });
 
-    req.end();//发起请求
+    req.end(); //发起请求
 
 };
 
@@ -261,44 +269,46 @@ Robot.prototype.send = function(url,callback){
  * 修改初始化数据，须在调用go方法前使用方能生效
  * @param options
  */
-Robot.prototype.setOpt = function(options){
+Robot.prototype.setOpt = function(options) {
 
-    this.domain = options.domain || this.domain ||"";//需要爬取网站的域名
-    this.firstUrl = options.firstUrl || this.firstUrl || "";//需要爬取网站的url
-    this.id = this.constructor.create();//唯一标识符
-    this.encoding = options.encoding || this.encoding || "UTF-8";//页面编码
-    this.outputPath = options.outputPath || this.outputPath || "";//爬取内容存放路径
-    this.outputFileName = options.outputFileName || this.outputFileName || "result.txt";//结果保存文件名
-    this.timeout = options.timeout || this.timeout || 5000;//超时时间
-    this.retryNum = options.retryNum || this.retryNum || 5;//失败重试次数
-    this.robots = options.robots || this.robots || true;//是否读取robots.txt文件
+    this.domain = options.domain || this.domain || ""; //需要爬取网站的域名
+    this.firstUrl = options.firstUrl || this.firstUrl || ""; //需要爬取网站的url
+    this.id = this.constructor.create(); //唯一标识符
+    this.encoding = options.encoding || this.encoding || "UTF-8"; //页面编码
+    this.outputPath = options.outputPath || this.outputPath || ""; //爬取内容存放路径
+    this.outputFileName = options.outputFileName || this.outputFileName || "result.txt"; //结果保存文件名
+    this.timeout = options.timeout || this.timeout || 5000; //超时时间
+    this.retryNum = options.retryNum || this.retryNum || 5; //失败重试次数
+    this.robots = options.robots || this.robots || true; //是否读取robots.txt文件
 
-    this.debug = options.debug || this.debug || false;//是否开启调试模式
+    this.debug = options.debug || this.debug || false; //是否开启调试模式
 
-    this.file = new File({
+    this.file = new mFile.File({
         path: this.outputPath,
         filename: this.outputFileName
     });
 
-    oResult.aNewURLQueue.push(this.firstUrl);//将第一个url添加进队列之中
+    oResult.aNewURLQueue.push(this.firstUrl); //将第一个url添加进队列之中
 
-    this.handlerComplete = options.handlerComplete || this.handlerComplete || function(){
-            console.log("["+getTime()+"]抓取结束...");
-
-
-            var str = "",i= 0,len=oResult.aTargetURLList.length;
-
-            for(i=0;i<len;i++){
-
-                url = oResult.aTargetURLList[i];
-                str+="（"+oResult.oTargetInfoList[url].name+"） : "+url+"\n"
-
-            }
-            this.file.save(str,true);
+    this.handlerComplete = options.handlerComplete || this.handlerComplete || function() {
+        console.log("[" + getTime() + "]抓取结束...");
 
 
-            this.file.save("\n["+getTime()+"]抓取完成...\n",true);
-        };
+        var str = "",
+            i = 0,
+            len = oResult.aTargetURLList.length;
+
+        for (i = 0; i < len; i++) {
+
+            url = oResult.aTargetURLList[i];
+            str += "（" + oResult.oTargetInfoList[url].name + "） : " + url + "\n";
+
+        }
+        this.file.save(str, true);
+
+
+        this.file.save("\n[" + getTime() + "]抓取完成...\n", true);
+    };
 
 
 };
@@ -310,17 +320,17 @@ Robot.prototype.setOpt = function(options){
  * @param url   访问链接
  * @param callback  用户给定访问成功回调，抛出给用户做一些处理
  */
-Robot.prototype.handlerSuccess = function(data,aType,url,callback){
+Robot.prototype.handlerSuccess = function(data, aType, url, callback) {
 
 
-    if(callback){
+    if (callback) {
 
         var $ = cheerio.load(data);
-        callback.call(this,$,aType,url,oResult.aNewURLQueue,oResult.aTargetURLList,oResult.oTargetInfoList);
+        callback.call(this, $, aType, url, oResult.aNewURLQueue, oResult.aTargetURLList, oResult.oTargetInfoList);
 
         oResult.iSuccessNum++;
         this.go(callback);
-    }else{
+    } else {
         this.go();
     }
 
@@ -330,7 +340,7 @@ Robot.prototype.handlerSuccess = function(data,aType,url,callback){
  * 失败后继续执行其他爬取任务
  * @param url
  */
-Robot.prototype.handlerFailure = function(url){
+Robot.prototype.handlerFailure = function(url) {
 
     //oResult.aNewURLQueue.indexOf(url)==-1&&oResult.aNewURLQueue.unshift(url);
     this.go();
@@ -347,32 +357,29 @@ Robot.prototype.handlerFailure = function(url){
  *
  * @return [大分类,小分类,编码类型] ["image","png","utf8"]
  */
-Robot.prototype.getResourceType = function(type){
-    if(!type){
+Robot.prototype.getResourceType = function(type) {
+    if (!type) {
         return '';
     }
     var aType = type.split('/');
-    aType.forEach(function(s,i,a){
+    aType.forEach(function(s, i, a) {
         a[i] = s.toLowerCase();
     });
-    if(aType[1] && (aType[1].indexOf(';') > -1)){
+    if (aType[1] && (aType[1].indexOf(';') > -1)) {
         var aTmp = aType[1].split(';');
         aType[1] = aTmp[0];
-        for(var i = 1; i < aTmp.length; i++){
-            if(aTmp[i] && (aTmp[i].indexOf("charset") > -1)){
+        for (var i = 1; i < aTmp.length; i++) {
+            if (aTmp[i] && (aTmp[i].indexOf("charset") > -1)) {
                 aTmp2 = aTmp[i].split('=');
-                aType[2] = aTmp2[1] ? aTmp2[1].replace(/^\s+|\s+$/,'').replace('-','').toLowerCase() : '';
+                aType[2] = aTmp2[1] ? aTmp2[1].replace(/^\s+|\s+$/, '').replace('-', '').toLowerCase() : '';
             }
         }
     }
-    if((["image"]).indexOf(aType[0]) > -1){
+    if ((["image"]).indexOf(aType[0]) > -1) {
         aType[2] = "binary";
     }
     return aType;
 };
 
 
-module.exports = Robot;
-
-
-
+module.exports.Robot = Robot;
