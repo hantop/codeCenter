@@ -11,8 +11,29 @@
 
 <body>
 
+<!--    预加载模块   start-->
+
+<!--黑色遮罩层   start-->
+<div class="mask unVisibility"></div>
+<!--黑色遮罩层   end-->
+
+<!--预加载提示层  start-->
+
+<div class="preloadTip">
+
+    <div class="pro"></div>
+
+
+</div>
+
+
+<!--预加载提示层  end-->
+
+<!--    预加载模块   end-->
+
+
 <div class="page-content">
-    
+
     <!--抽奖内容区   start-->
     <div class="lottery-area">
 
@@ -27,20 +48,23 @@
         <!--活动主题    end-->
 
         <!--抽奖区     start-->
-        <div class="lotteryBox" style="display: none">
+        <div class="lotteryBox" style="display: block">
 
             <div id="box" class="box">
                 <div class="outer lottery lotteryContent"><img src="./imgs/lotteryContent.png"></div>
-                <div class="inner lotteryBtn no-start"></div>
+                <div class="inner lotteryBtn start"></div>
             </div>
 
-            <div class="recharge">
+            <div class="recharge" style="display: none">
                 <p>1分钱已充值到民贷账户：150567324566</p>
                 <a href="javascript:;">来民贷做理财达人></a>
             </div>
 
+
+            <span class="button confirm-btn" id="fourthBtn" style="display: none;">去拿11%高利率理财收益</span>
+
             <!--输入区域    start-->
-            <div class="input-area">
+            <div class="input-area" id="inputArea">
 
                 <div class="input-box">
 
@@ -75,7 +99,7 @@
         <!--奖品展示    end-->
 
         <!--奖品展示    start-->
-        <div class="award-show redbag" style="display: block;">
+        <div class="award-show redbag" style="display: none;">
 
             <div class="tip">
                 <p>当前号码：150567324566</p>
@@ -99,32 +123,52 @@
         <!--奖品展示    end-->
 
 
-
     </div>
     <!--抽奖内容区   end-->
-    
-    
+
+
     <!--品牌展示区   start-->
     <div class="brand-area">
-        <img src="./imgs/brand.png" alt="">
+
+        <div class="brand-title"></div>
+        <div class="brand-introduce">由政府产业基金发起设立的互联网金融平台</div>
+        <div class="safe">交易与账户安全由中国人民保险公司全程保障</div>
+
+        <ul class="product">
+            <li class="item">
+                <i class="icon icon_1"></i>
+                <span class="desc">政府基金发起设立</span>
+            </li>
+            <li class="item">
+                <i class="icon icon_2"></i>
+                <span class="desc">亿元实缴资本</span>
+            </li>
+            <li class="item">
+                <i class="icon icon_3"></i>
+                <span class="desc">银行级风控</span>
+            </li>
+            <li class="item">
+                <i class="icon icon_4"></i>
+                <span class="desc">多重保障</span>
+            </li>
+        </ul>
+
+        <!--<img src="./imgs/brand.png" alt="">-->
     </div>
     <!--品牌展示区   end-->
-    
+
 </div>
 
-<!--黑色遮罩层   start-->
-<div class="mask" style="display:block;"></div>
-<!--黑色遮罩层   end-->
 
 <!--输入对话框   start-->
-<div class="input-dialog newUser">
+<div class="dialog input-dialog newUser animated" id="newUserDialog">
     <p class="tip">已发送手机验证码至<span class="mobile">188****8465</span></p>
     <div class="content">
         <div class="input-code">
             <input type="tel" class="input-text code" placeholder="请输入验证码">
             <a href="javascript:;" class="getCode">60s</a>
         </div>
-        <input type="tel" class="input-text code" placeholder="请设置登录密码">
+        <input type="password" class="input-text pass" placeholder="请设置登录密码">
     </div>
 
     <div class="button submit">确认</div>
@@ -134,7 +178,7 @@
 <!--输入对话框   end-->
 
 <!--输入对话框   start-->
-<div class="input-dialog oldUser">
+<div class="dialog input-dialog oldUser animated" id="oldUserDialog">
     <p class="tip">已发送手机验证码至<span class="mobile">188****8465</span></p>
     <div class="content">
         <div class="input-code">
@@ -148,37 +192,51 @@
 <!--输入对话框   end-->
 
 <!--奖励结果对话框 start-->
-<div class="award-dialog" style="display: block">
+<div class="dialog award-dialog animated" id="awardDialog" style="display: none">
 
-    <i class="icon liuliang"></i>
+    <i class="icon award-pic"></i>
 
-    <p class="name">抽中IPhone7+100云理财红包</p>
+    <p class="name">抽中<b class="award-name" id="award-name">IPhone 7</b>+100云理财红包</p>
 
     <div class="info">
-        <p class="main-tip">话费将在48小时内充值到活动号码，请留意短信通知。</p>
-        <a href="javascript:;" class="licai">使用红包去理财></a>
+        <div class="box">
+            <p class="main-tip">话费将在48小时内充值到活动号码，请留意短信通知。</p>
+            <a href="javascript:;" class="licai">使用红包去理财></a>
+        </div>
     </div>
 
 </div>
 <!--奖励结果对话框 end-->
 
 <!--提示对话框   start-->
-<div class="tip-dialog">
+<div class="dialog tip-dialog animated" id="ruleDialog">
 
     <h2 class="tip_title">活动说明</h2>
 
     <div class="content">
 
-        <p>1. 仅限本页面注册的用户参与，微信支付1分钱，即可启动转盘进行抽奖，并额外获得100元理财红包；</p>
-        <p>2. 每个微信号、手机号限参与一次，中奖率100%；</p>
-        <p>3. 奖品说明：</p>
-        <p>a. 话费和流量将于中奖后的48小时内到账；</p>
-        <p>b. 实物奖品由工作人员在3个工作日内联系中奖号码进行奖品派送，请保持手机畅通；</p>
-        <p>c. 100元理财红包在抽奖后将存入您的民贷账户。</p>
-        <p>d. 若遇到奖品派发问题，请将中奖界面截图，联系客服4008-726-799；</p>
-        <p>4. 本活动奖品数量有限，先到先得，送完即止。</p>
-        <p>5. 已注册用户可通过分享获取红包福利：分享好友注册即可获得2元红包、好友投资加送10元红包；</p>
-        <p>6. 本活动由民贷天下发起，最终解释权归民贷天下所有。</p>
+        <div class="item">
+            <p>1. 仅限本页面注册的用户参与，微信支付1分钱，即可启动转盘进行抽奖，并额外获得100元理财红包；</p>
+        </div>
+        <div class="item">
+            <p>2. 每个微信号、手机号限参与一次，中奖率100%；</p>
+        </div>
+        <div class="item">
+            <p>3. 奖品说明：</p>
+            <p>a. 话费和流量将于中奖后的48小时内到账；</p>
+            <p>b. 实物奖品由工作人员在3个工作日内联系中奖号码进行奖品派送，请保持手机畅通；</p>
+            <p>c. 100元理财红包在抽奖后将存入您的民贷账户。</p>
+            <p>d. 若遇到奖品派发问题，请将中奖界面截图，联系客服4008-726-799；</p>
+        </div>
+        <div class="item">
+            <p>4. 本活动奖品数量有限，先到先得，送完即止。</p>
+        </div>
+        <div class="item">
+            <p>5. 已注册用户可通过分享获取红包福利：分享好友注册即可获得2元红包、好友投资加送10元红包；</p>
+        </div>
+        <div class="item">
+            <p>6. 本活动由民贷天下发起，最终解释权归民贷天下所有。</p>
+        </div>
 
     </div>
 
@@ -186,54 +244,10 @@
 <!--提示对话框   end-->
 
 
-
-<script src="./js/jquery-1.8.3.min.js"></script>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/imgPreload.js"></script>
 <script src="./js/rotatePanel.js"></script>
-<!--<div id="box" class="box">-->
-    <!--<div class="outer lottery lotteryContent"><img src="./imgs/lotteryContent.png"></div>-->
-    <!--<div class="inner lotteryBtn completed"></div>-->
-<!--</div>-->
-
-
-<!--<script>-->
-
-
-    <!--var lottery = new Lottery({-->
-        <!--rotateNum:8,//转盘转动圈数-->
-        <!--rotateTime:'5s',//转动一周所用时间-->
-        <!--body:"#box",//大转盘整体的选择符或zepto对象-->
-
-
-        <!--disabledHandler:function(){-->
-
-            <!--console.log('现在不能抽奖');-->
-
-        <!--},//禁止抽奖时回调-->
-
-        <!--clickCallback:function(){-->
-
-            <!--//此处访问接口获取奖品-->
-            <!--function random(){-->
-                <!--return Math.floor(Math.random()*360);-->
-            <!--}-->
-
-
-
-            <!--this.goLottery(random());-->
-
-        <!--},//点击抽奖按钮,再次回调中实现访问后台获取抽奖结果,拿到抽奖结果后显示抽奖画面-->
-
-        <!--lotteryHandler:function(deg){-->
-
-            <!--console.log('抽奖结果是:'+deg);-->
-
-
-        <!--}//抽奖结束回调-->
-    <!--});-->
-
-
-
-<!--</script>-->
+<script src="./js/main.js"></script>
 </body>
 
 </html>
