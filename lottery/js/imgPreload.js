@@ -85,8 +85,8 @@
 
     function progress(options){
 
-        this.w = (options && options.width)?parseFloat(options.width) : parseFloat(this.options.width);
-        this.h = (options && options.height)?parseFloat(options.height) : parseFloat(this.options.height);
+        this.w = (options && options.width)?options.width : this.options.width;
+        this.h = (options && options.height)?options.height : this.options.height;
         this.bgColor = (options && options.bgColor)?options.bgColor : this.options.bgColor;
         this.proColor = (options && options.proColor)?options.proColor : this.options.proColor;
         this.fontColor = (options && options.fontColor)?options.fontColor : this.options.fontColor;
@@ -97,8 +97,9 @@
         this.val = (options && options.val)?options.val : this.options.val;
         this.float = (options && options.float != undefined)?options.float:false;
 
-        this.w = isNaN(this.w)?this.w+"px":this.w;
-        this.h = isNaN(this.h)?this.h+"px":this.h;
+        this.w = isNaN(this.w)?this.w:this.w+"px";
+        this.h = isNaN(this.h)?this.h:this.h+"px";
+
 
 
         this.strTemp = this.text.substring(0,this.text.indexOf('#*'))+"{{pro}}"+this.text.substring(this.text.indexOf('*#')+2);

@@ -64,9 +64,8 @@
 
             }else{
 
-                var key = "";
 
-                key = $(this).hasClass('no-start')?"noStart":$(this).hasClass('completed')?"completed":"illegal";
+                var key = $(this).hasClass('no-start')?"noStart":$(this).hasClass('completed')?"completed":"illegal";
 
                 self.opts.disabledHandler(key);
 

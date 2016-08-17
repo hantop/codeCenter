@@ -321,9 +321,9 @@
 
             var pro = new progress({
 
-                width: document.documentElement.clientWidth * .9,//进度条宽度
+                width: '100%',//进度条宽度
 
-                height: 2,//进度条高度
+                height: '.1rem',//进度条高度
 
                 bgColor: "#fffeea",//背景颜色
 
