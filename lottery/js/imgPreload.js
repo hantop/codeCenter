@@ -5,6 +5,7 @@
 (function(win,doc,$){
 
     var defOpts = {
+        maxErrLoadNum: 0
     };
 
     var ImagePreloader = function(opts){
@@ -14,6 +15,8 @@
         this.len = this.opts.imgs.length;
 
     };
+
+    ImagePreloader.prototype.errorImgs = {};
 
 
     ImagePreloader.prototype.start = function(){
@@ -63,9 +66,30 @@
 
             img.onerror = function(){
 
-                console.log("图片[" + url + "]加载出错",arguments);
+                if(self.opts.maxErrLoadNum==0){
+                    console.log("图片[" + url + "]加载出错",arguments);
+                    self.start();
+                }else{
 
-                self.start();
+                    if(self.errorImgs[url]==undefined){
+                        self.errorImgs[url] = 1;
+                    }else{
+                        self.errorImgs[url]++;
+                    }
+
+
+                    if(self.errorImgs[url]<self.opts.maxErrLoadNum){
+                        console.log("图片[" + url + "]加载出错"+self.errorImgs[url]+"次,重新加入队列",arguments);
+                        self.opts.imgs.push(url);
+                    }else{
+                        console.log("图片[" + url + "]加载出错"+self.errorImgs[url]+"次,资源可能损坏或被迁移,请检查后重试",arguments);
+                    }
+
+                    self.start();
+                }
+
+
+
 
             };
 

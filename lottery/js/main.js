@@ -9,18 +9,18 @@
 
     //需要进行预加载的图片
     var preloadImgs = [
-        "./imgs/tip_title_bg.png",
+        // "./imgs/tip_title_bg.png",
         "./imgs/introduce.png",
         "./imgs/tip_bg.png",
-        "./imgs/dialog_bg_white.png",
-        "./imgs/dialog_bg_yellow.png",
+        // "./imgs/dialog_bg_white.png",
+        // "./imgs/dialog_bg_yellow.png",
         "./imgs/lotteryBtn.png",
         "./imgs/brand.png",
         "./imgs/btn_bg.png",
         "./imgs/input_bg.png",
         "./imgs/lotteryContent.png",
         "./imgs/page_footer.png",
-        "./imgs/result_panel.png",
+        // "./imgs/result_panel.png",
         "./imgs/main_bg.png",
         "./imgs/main_title.png",
         "./imgs/redbag.png",
@@ -344,6 +344,7 @@
             var imgPreload = new ImagePreloader({
 
                 imgs: preloadImgs || [],
+                maxErrLoadNum:5,
                 preloadSuccessHandler: function (pre,allTime) {
 
                     pro.update(pre);

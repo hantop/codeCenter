@@ -110,6 +110,7 @@ i.redbag{
 .lottery-area{
     width: 100%;
     background-image: url(../imgs/main_bg.png);
+    background-color: #f7da3d;
     background-size: 100% auto;
     background-repeat: no-repeat;
     position: relative;
@@ -144,6 +145,7 @@ i.redbag{
 .lotteryBox{
     overflow: hidden;
     padding-bottom: 2rem;
+    background-color: #f7da3d;
 }
 .lotteryBox .box {
     width: 14rem;
