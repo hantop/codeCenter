@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>checkbox</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        html,body{
+            background: #f9f7e0;
+        }
+        ul{
+
+        }
+        ul li{
+            padding: 10px;
+            min-height: 200px;
+            background: #ffffff;
+            border-top: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            color: #333;
+            font-size: 16px;
+            margin: 10px 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="checkbox.css">
+</head>
+<body>
+
+<ul>
+    <li>
+        <span for="qu1">你喜欢我?</span>
+        <i class="checkbox radio" id="qu1" name="check"></i>
+    </li>
+    <li>
+        <span for="qu2">你真的喜欢我?</span>
+        <i class="checkbox radio" id="qu2" data-checked="false" name="check"></i>
+    </li>
+</ul>
+
+<script src="jquery-1.8.3.min.js"></script>
+<script src="checkbox.js"></script>
+<script>
+
+
+
+
+    $(".checkbox").change(function(){
+        console.log($(this).attr('id')+" : ",$(this).val());
+    });
+
+
+
+</script>
+
+</body>
+</html>

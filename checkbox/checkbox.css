@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+
+.checkbox{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url(./checkbox.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position-y: 100%;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.checkbox[data-checked="true"]{
+    background-position-y: 0;
+}
+.checkbox[data-checked="false"]{
+    background-position-y: 100%;
+}
+.checkbox[disabled],.checkbox.disabled{
+    opacity: .4;
+    cursor: not-allowed;
+}

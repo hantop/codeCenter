@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>column</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 100%;
+            padding: 10px 0;
+            background: #eaeaea;
+        }
+        .box .row{
+            -webkit-column-count:2;
+            -moz-column-count:2;
+            column-count:2;
+            -webkit-column-gap:0;
+            -moz-column-gap:0;
+            column-gap:0;
+            padding: 5px 0;
+
+        }
+        .box .row .ceil{
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            height: 50px;
+            background: #fefefe;
+        }
+        .box .row .ceil .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+        }
+        .box .row .ceil:nth-child(odd){
+            border-right: 1px solid #dadada;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <div class="row">
+            <div class="ceil">
+                <div class="content">这是第1个div</div></div>
+            <div class="ceil">
+                <div class="content">这是第2个div</div></div>
+        </div>
+        <div class="row">
+            <div class="ceil">
+                <div class="content">这是第1个div</div></div>
+            <div class="ceil">
+                <div class="content">
+                    这是第2个div
+                    <p>这是描述...</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ceil">
+                <div class="content">这是第1个div</div></div>
+            <div class="ceil">
+                <div class="content">这是第2个div</div></div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
  */
 
 
-(function () {
+(function() {
 
     var timer = null;
 
@@ -34,7 +34,7 @@
          * @param id
          * @param clickMask2Close
          */
-        showDialog: function (id, clickMask2Close, animated) {
+        showDialog: function(id, clickMask2Close, animated) {
 
             var dialogClass = $('#' + id).attr('class');
             var maskClass = $('.mask').attr('class');
@@ -45,7 +45,7 @@
 
                 $(".mask").show().addClass("fadeInDown");
                 $('#' + id).show().addClass("fadeInDown")
-                    .on('webkitAnimationEnd', function () {
+                    .on('webkitAnimationEnd', function() {
 
                         $(".mask").attr('class', maskClass);
                         $(this).attr('class', dialogClass);
@@ -61,14 +61,14 @@
 
             if (clickMask2Close) {
 
-                (function(maskClass,dialogClass,id){
+                (function(maskClass, dialogClass, id) {
 
-                    $(".mask").unbind('click').on('click', function () {
+                    $(".mask").unbind('click').on('click', function() {
 
 
 
                         $(".mask").hide().attr('class', maskClass);
-                        $("#"+id).hide().attr('class', dialogClass);
+                        $("#" + id).hide().attr('class', dialogClass);
                         clearInterval(timer);
                         // $(".mask").addClass("fadeOut");
                         // $("#" + id).addClass("fadeOut")
@@ -81,7 +81,7 @@
 
                     });
 
-                })(maskClass,dialogClass,id);
+                })(maskClass, dialogClass, id);
 
 
 
@@ -89,12 +89,11 @@
 
 
 
-
         },
         /**
          * 隐藏所有弹出框
          */
-        hideDialog: function () {
+        hideDialog: function() {
 
             $(".mask").hide();
             $(".dialog").hide();
@@ -108,9 +107,9 @@
          * @param updateHandler
          * @param completeHandler
          */
-        cutdown: function (time, updateHandler, completeHandler) {
+        cutdown: function(time, updateHandler, completeHandler) {
 
-            var timer = setInterval(function () {
+            var timer = setInterval(function() {
 
                 if (time == 0) {
 
@@ -136,19 +135,19 @@
          * @param deg
          * @returns {*}
          */
-        whichAward: function (deg) {
+        whichAward: function(deg) {
 
-            if ((deg > 330 && deg <= 360) || (deg > 0 && deg <= 30)) {//10M流量
+            if ((deg > 330 && deg <= 360) || (deg > 0 && deg <= 30)) { //10M流量
                 return "三网通流量 10M";
-            } else if ((deg > 30 && deg <= 90)) {//IPhone 7
+            } else if ((deg > 30 && deg <= 90)) { //IPhone 7
                 return "iPhone7";
-            } else if (deg > 90 && deg <= 150) {//30M流量
+            } else if (deg > 90 && deg <= 150) { //30M流量
                 return "三网通流量 30M";
-            } else if (deg > 150 && deg <= 210) {//5元话费
+            } else if (deg > 150 && deg <= 210) { //5元话费
                 return "话费5元";
-            } else if (deg > 210 && deg <= 270) {//IPad mini 4
+            } else if (deg > 210 && deg <= 270) { //IPad mini 4
                 return "ipad mini4";
-            } else if (deg > 270 && deg <= 330) {//20元话费
+            } else if (deg > 270 && deg <= 330) { //20元话费
                 return "话费20元";
             }
 
@@ -162,11 +161,11 @@
     function lotteryInit(opt) {
 
         var lottery = new Lottery({
-            rotateNum: 8,//转盘转动圈数
-            body: "#box",//大转盘整体的选择符或zepto对象
-            direction:0,//0为顺时针转动,1为逆时针转动
+            rotateNum: 8, //转盘转动圈数
+            body: "#box", //大转盘整体的选择符或zepto对象
+            direction: 0, //0为顺时针转动,1为逆时针转动
 
-            disabledHandler: opt.disabledHandler || function (key) {
+            disabledHandler: opt.disabledHandler || function(key) {
 
                 switch (key) {
                     case "noStart":
@@ -177,9 +176,9 @@
                         break;
                 }
 
-            },//禁止抽奖时回调
+            }, //禁止抽奖时回调
 
-            clickCallback: opt.clickHandler || function () {
+            clickCallback: opt.clickHandler || function() {
 
                 //此处访问接口获取奖品
                 function random() {
@@ -189,15 +188,15 @@
 
                 this.goLottery(random());
 
-            },//点击抽奖按钮,再次回调中实现访问后台获取抽奖结果,拿到抽奖结果后显示抽奖画面
+            }, //点击抽奖按钮,再次回调中实现访问后台获取抽奖结果,拿到抽奖结果后显示抽奖画面
 
-            lotteryHandler: opt.lotteryHandler || function (deg) {
+            lotteryHandler: opt.lotteryHandler || function(deg) {
 
-                alert('抽奖结果是:' + deg);
-                alert("恭喜您获得:" + tools.whichAward(deg));
+                    alert('抽奖结果是:' + deg);
+                    alert("恭喜您获得:" + tools.whichAward(deg));
 
 
-            }//抽奖结束回调
+                } //抽奖结束回调
         });
 
         return lottery;
@@ -206,7 +205,7 @@
 
     lotteryInit({
 
-        clickHandler: function () {
+        clickHandler: function() {
             //此处访问接口获取奖品
             function random() {
                 return Math.floor(Math.random() * 360);
@@ -215,18 +214,18 @@
 
             this.goLottery(random());
         },
-        lotteryHandler: function (deg) {
+        lotteryHandler: function(deg) {
 
 
             var award = tools.whichAward(deg);
             var awardPic = $('.award-dialog .award-pic');
 
 
-            if (award == "iPhone7" || award == "ipad mini4") {//手机
+            if (award == "iPhone7" || award == "ipad mini4") { //手机
                 awardPic.removeClass("liuliang").removeClass("huafei").addClass("phone");
-            } else if (award.indexOf("流量") != -1) {//流量
+            } else if (award.indexOf("流量") != -1) { //流量
                 awardPic.removeClass("phone").removeClass("huafei").addClass("liuliang");
-            } else if (award.indexOf("话费") != -1) {//话费
+            } else if (award.indexOf("话费") != -1) { //话费
                 awardPic.removeClass("liuliang").removeClass("phone").addClass("huafei");
             }
 
@@ -241,18 +240,17 @@
 
 
 
-
     var pageController = {
 
         /**
          * 首次进入页面
          */
-        page_1: function () {
+        page_1: function() {
 
             tools.hideDialog();
             $('.lotteryBox').show();
-            $('.award-show').hide();//奖品展示
-            $('.recharge').hide();//已充值提示
+            $('.award-show').hide(); //奖品展示
+            $('.recharge').hide(); //已充值提示
             $('#fourthBtn').hide();
             $('#inputArea').show();
             $('.lotteryBtn').removeClass('start').removeClass('completed').addClass('no-start');
@@ -261,39 +259,39 @@
         /**
          * 非本次渠道注册用户进入此页面
          */
-        page_2: function () {
+        page_2: function() {
 
             tools.hideDialog();
             $('.lotteryBox').hide();
-            $('.award-show').hide();//奖品展示
-            $('.recharge').hide();//已充值提示
+            $('.award-show').hide(); //奖品展示
+            $('.recharge').hide(); //已充值提示
 
-            $('.award-show.redbag').show();//奖品展示
+            $('.award-show.redbag').show(); //奖品展示
 
         },
         /**
          * 用户已经抽过奖进入此页面
          */
-        page_3: function () {
+        page_3: function() {
 
 
             tools.hideDialog();
             $('.lotteryBox').hide();
-            $('.award-show').hide();//奖品展示
-            $('.recharge').hide();//已充值提示
+            $('.award-show').hide(); //奖品展示
+            $('.recharge').hide(); //已充值提示
 
-            $('.award-show.phone').show();//奖品展示
+            $('.award-show.phone').show(); //奖品展示
 
         },
 
         /**
          * 抽奖结束
          */
-        page_4: function () {
+        page_4: function() {
             tools.hideDialog();
             $('.lotteryBox').show();
-            $('.award-show').hide();//奖品展示
-            $('.recharge').hide();//已充值提示
+            $('.award-show').hide(); //奖品展示
+            $('.recharge').hide(); //已充值提示
             $('.lotteryBtn').removeClass('start').removeClass('no-start').addClass('completed');
             $('#fourthBtn').show();
             $('#inputArea').hide();
@@ -301,11 +299,11 @@
         /**
          * 支付过,进入抽奖页面
          */
-        page_5: function () {
+        page_5: function() {
             // tools.hideDialog();
             $('.lotteryBox').show();
-            $('.award-show').hide();//奖品展示
-            $('.recharge').show();//已充值提示
+            $('.award-show').hide(); //奖品展示
+            $('.recharge').show(); //已充值提示
             $('#fourthBtn').hide();
             $('#inputArea').hide();
             $('.lotteryBtn').removeClass('no-start').removeClass('completed').addClass('start');
@@ -313,29 +311,29 @@
         /**
          * 未支付,调用微信支付sdk跳转至支付页,支付完成后提交订单信息到后台,提交陈恭候返回page_5
          */
-        page_6: function () {
+        page_6: function() {
 
         },
-        preload:function(){
+        preload: function() {
 
 
             var pro = new progress({
 
-                width: '100%',//进度条宽度
+                width: '100%', //进度条宽度
 
-                height: '.1rem',//进度条高度
+                height: '.1rem', //进度条高度
 
-                bgColor: "#fffeea",//背景颜色
+                bgColor: "#fffeea", //背景颜色
 
-                proColor: "#0088ff",//前景颜色
+                proColor: "#0088ff", //前景颜色
 
-                fontColor: "#FFFFFF",//显示字体颜色
+                fontColor: "#FFFFFF", //显示字体颜色
 
-                val: 0,//默认值
+                val: 0, //默认值
 
                 float: true,
 
-                text: "当前进度为#*val*#%",//显示文字信息
+                text: "当前进度为#*val*#%", //显示文字信息
 
                 showPresent: true
 
@@ -344,14 +342,14 @@
             var imgPreload = new ImagePreloader({
 
                 imgs: preloadImgs || [],
-                maxErrLoadNum:5,
-                preloadSuccessHandler: function (pre,allTime) {
+                maxErrLoadNum: 5,
+                preloadSuccessHandler: function(pre, allTime) {
 
                     pro.update(pre);
-                    console.log("正在加载图片[" + this.src + "],当前进度为:" + pre + "%;加载图片花费时间:"+allTime+"s");
+                    console.log("正在加载图片[" + this.src + "],当前进度为:" + pre + "%;加载图片花费时间:" + allTime + "s");
 
                 },
-                preloadCompleteHandler: function (pre) {
+                preloadCompleteHandler: function(pre) {
 
                     $('.mask').hide().removeClass('unVisibility');
                     $('.preloadTip').hide();
@@ -365,7 +363,7 @@
             });
 
 
-            $(document).ready(function(){
+            $(document).ready(function() {
                 $('.preloadTip').append(pro.getBody());
             });
 
@@ -380,12 +378,12 @@
 
     pageController.preload();
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
 
 
         //绑定规则提示弹出框
-        $('.introduce').click(function () {
+        $('.introduce').click(function() {
 
             tools.showDialog("ruleDialog", true);
 
@@ -395,15 +393,15 @@
         function doCutdown(id, time) {
             time = time || 60;
             $('#' + id + ' .getCode').attr('data-doing', true).removeClass('retry').text(time + "s");
-            timer = tools.cutdown(time, function (time) {
+            timer = tools.cutdown(time, function(time) {
                 $('#' + id + ' .getCode').text(time + "s");
-            }, function () {
+            }, function() {
                 $('#' + id + ' .getCode').attr('data-doing', false).text("重新获取").addClass('retry');
             });
         }
 
         //用户输入框
-        $('#firstInitBtn').click(function () {
+        $('#firstInitBtn').click(function() {
 
             //首先获取到用户手机号码
             var mobile = $.trim($('#mobileNo').val());
@@ -433,7 +431,7 @@
         });
 
         //重新获取验证码
-        $('body').on('click', '.getCode', function () {
+        $('body').on('click', '.getCode', function() {
 
             var isDoing = $(this).attr('data-doing');
 
@@ -448,7 +446,7 @@
 
         //新用户提交手机验证码和初始密码完成注册进入下一流程
         //老用户提交手机验证码进入下一流程
-        $('.input-dialog .submit').click(function () {
+        $('.input-dialog .submit').click(function() {
 
             var p = $(this).parents(".input-dialog");
 
