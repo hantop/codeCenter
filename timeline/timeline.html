@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间🌲</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .kiner-timeline-box{
+            padding: 2em;
+            position: relative;
+            margin: 0 auto;
+        }
+        .kiner-timeline-box ul{
+            border-left: 1px solid #eaeaea;
+        }
+        .kiner-timeline-box ul li{
+            list-style: none;
+            padding: 1em;
+            position: relative;
+            left: -1px;
+            border-left: 1px solid transparent;
+        }
+        .kiner-timeline-box ul li::before{
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #aaaaaa;
+            position: absolute;
+            color: cornflowerblue;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            -webkit-box-shadow:  0 0 5px #000000;
+            -moz-box-shadow:  0 0 5px #000000;
+            box-shadow:  0 0 5px #000000;
+        }
+        .kiner-timeline-box ul li.active::before,.kiner-timeline-box ul li.current::before{
+            background: cornflowerblue;
+            -webkit-box-shadow:  0 0 5px cornflowerblue;
+            -moz-box-shadow:  0 0 5px cornflowerblue;
+            box-shadow:  0 0 5px cornflowerblue;
+        }
+        .kiner-timeline-box ul li.current::before{
+            width: 12px;
+            height: 12px;
+        }
+        .kiner-timeline-box ul li.active,.kiner-timeline-box ul li.current{
+            border-left: cornflowerblue 1px solid;
+        }
+        .kiner-timeline-box ul li .title,.kiner-timeline-box ul li .time{
+            color: #CCCCCC;
+        }
+        .kiner-timeline-box ul li .title{
+            font-size: 18px;
+        }
+        .kiner-timeline-box ul li .time{
+            font-size: 14px;
+        }
+        .kiner-timeline-box ul li.active .title,.kiner-timeline-box ul li.current .title{
+            color: #333333;
+            margin-bottom: .5em;
+            font-size: 18px;
+        }
+        .kiner-timeline-box ul li.active .time,.kiner-timeline-box ul li.current .time{
+            color: #666666;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="kiner-timeline-box">
+
+    <ul>
+        <li class="active">
+            <h2 class="title">时间节点1</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li class="active">
+            <h2 class="title">时间节点2</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li class="active">
+            <h2 class="title">时间节点3</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li class="active">
+            <h2 class="title">时间节点4</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li class="active current">
+            <h2 class="title">时间节点5</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li>
+            <h2 class="title">时间节点6</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li>
+            <h2 class="title">时间节点7</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+        <li>
+            <h2 class="title">时间节点8</h2>
+            <span class="time">2016/08/26</span>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>

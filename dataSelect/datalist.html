@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>单项选择</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            font-size: 16px;
+        }
+
+
+        @media only screen and (min-width: 360px){
+            html {
+                font-size: 18px !important;
+            }
+        }
+        @media only screen and (min-width: 401px){
+            html {
+                font-size: 20px !important;
+            }
+        }
+        @media only screen and (min-width: 428px){
+            html {
+                font-size: 26.75px !important;
+            }
+        }
+        @media only screen and (min-width: 481px){
+            html {
+                font-size: 30px !important;
+            }
+        }
+        @media only screen and (min-width: 569px){
+            html {
+                font-size: 35px !important;
+            }
+        }
+        @media only screen and (min-width: 641px){
+            html {
+                font-size: 40px !important;
+            }
+        }
+
+        button{
+            width: 18rem;
+            height: 3rem;
+            background-color: #00b7ee;
+            color: #ffffff;
+            outline: none;
+            border: none;
+            border-radius: .4em;
+            margin: 1rem auto;
+            display: block;
+            font-size: 1rem;
+        }
+        button:active,button:focus{
+            opacity: .72;
+        }
+        .resultPanel,.resultPanel2{
+            text-align: center;
+            color: #aaaaaa;
+            font-size: 1rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/datalist.css">
+</head>
+<body>
+
+    <button value="选择" id="select">投资期限</button>
+
+
+    <div class="resultPanel"></div>
+
+    <button value="选择" id="select2">年华利率</button>
+
+    <div class="resultPanel2"></div>
+
+    <div class="box"></div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/datalist.js"></script>
+
+    <script>
+
+
+        var data = {};
+        var data2 = {};
+
+        for(var i=1;i<=12;i++){
+            data[i+""] = i+"个月";
+        }
+        for(var i=1;i<=12;i++){
+            data2[i+""] = i+"%";
+        }
+
+        $('#select').dataList({
+//            title:"投资期限",
+            target: ".box",
+            data:data,
+            showResult:true,
+            showClose:true,
+            select2close:true,
+            val:"1",
+            ready:function(opts){
+//                console.log(this,arguments);
+//                with(this){
+//
+//                    setOptions({
+//                        showClose:true,
+//                        title:"kiner",
+//                        isAnimation: true
+//                    });
+//
+//                }
+            }
+        }).on('selected',function(e,ctx,val,text){
+            $('.resultPanel').html("[select1]您选择了:"+text+"["+val+"]");
+        }).change(function(e,ctx,val,text){
+            console.log(ctx.getVal());
+//            console.log(ctx);
+            $('.resultPanel').html("[select1]您重新选择了:"+text+"["+val+"]");
+        }).on("shown",function(e,ctx){
+//            console.log(ctx);
+//            console.log("[select1]打开选择");
+        }).on("hidden",function(e,ctx){
+//            console.log(ctx);
+//            console.log("[select1]关闭选择框");
+        }).on("cancel",function(e,ctx,val,text){
+            console.log(ctx);
+            console.log("[select1]取消选择,当且值为"+text+"["+val+"]");
+        });
+
+        $('#select2').dataList({
+//            title:"年化利率",
+            target: ".box",
+            data:data2,
+            showResult:true,
+            showClose:true,
+            select2close:true,
+            ready:function(opts){
+
+//                console.log(this,arguments);
+//                this.setOptions({
+//                    title:"这是自定义标题2"
+//                });
+            }
+        }).on('selected',function(e,ctx,val,text){
+//            console.log(ctx);
+            $('.resultPanel2').html("[select2]您选择了:"+text+"["+val+"]");
+        }).change(function(e,ctx,val,text){
+//            console.log(ctx);
+            $('.resultPanel2').html("[select2]您重新选择了:"+text+"["+val+"]");
+        }).on("shown",function(e,ctx){
+//            console.log(ctx);
+//            console.log("[select2]打开选择");
+        }).on("hidden",function(e,ctx){
+//            console.log(ctx);
+//            console.log("[select2]关闭选择框");
+        }).on("cancel",function(e,ctx,val,text){
+//            console.log(ctx);
+//            console.log("[select2]取消选择,当且值为"+text+"["+val+"]");
+        });
+    </script>
+
+</body>
+</html>

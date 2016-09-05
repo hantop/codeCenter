@@ -12,9 +12,9 @@ var rule = new schedule.RecurrenceRule();
 
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];
 
-rule.hour = 7;
+rule.hour = 10;
 
-rule.minute = 32;
+rule.minute = 18;
 
 var options = {
     domain: "dytt8.net",
