@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box,.box2{
+            width: 80%;
+            padding: 10px;
+            text-align: center;
+            color: #333333;
+            margin: 20px auto;
+            position: relative;
+        }
+        .box:before{
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200%;
+            height: 200%;
+            border: 1px #000000 solid;
+            -webkit-transform: scale(.5);
+            -moz-transform: scale(.5);
+            -ms-transform: scale(.5);
+            -o-transform: scale(.5);
+            transform: scale(.5);
+            -webkit-transform-origin:0 0;
+            -moz-transform-origin:0 0;
+            -ms-transform-origin:0 0;
+            -o-transform-origin:0 0;
+            transform-origin:0 0;
+            z-index: -1;
+        }
+
+        .box2{
+            border: 1px #000000 solid;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="box">这是使用border方式实现的半像素边框</div>
+
+<div class="box2">这是普通的1像素边框</div>
+
+
+
+</body>
+</html>
