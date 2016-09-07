@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>handleClick</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div class="box"></div>
+
+<script type="text/babel">
+
+    var Handler = React.createClass({
+        handleClick: function () {
+            this.refs.input1.focus();
+        },
+        render: function () {
+            return (
+                    <div>
+                        <input type="text" id="input1" name="input1" ref="input1"/>
+                        <button onClick={this.handleClick}>点我</button>
+                    </div>
+            )
+        }
+
+    });
+
+    ReactDOM.render(
+            <Handler/>,
+            document.getElementsByClassName('box')[0]
+    );
+
+</script>
+
+</body>
+</html>

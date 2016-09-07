@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+
+*{
+    padding: 0;
+    margin: 0;
+}
+.kiner-select-box {
+    font-size : 20px;
+}
+@media only screen and (min-width: 401px){
+    .kiner-select-box {
+        font-size: 25px !important;
+    }
+}
+@media only screen and (min-width: 428px){
+    .kiner-select-box {
+        font-size: 26.75px !important;
+    }
+}
+@media only screen and (min-width: 481px){
+    .kiner-select-box {
+        font-size: 30px !important;
+    }
+}
+@media only screen and (min-width: 569px){
+    .kiner-select-box {
+        font-size: 35px !important;
+    }
+}
+@media only screen and (min-width: 641px){
+    .kiner-select-box {
+        font-size: 40px !important;
+    }
+}
+
+.kiner-select-box {
+    height: 100%;
+    display: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.kiner-select-box .kiner-select-box-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 999;
+}
+
+.kiner-select-box .kiner-select-box-data-list {
+    width: 100%;
+    background-color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    height: 15em;
+    padding-bottom: .5em;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title {
+    padding-left: 1em;
+    font-size: .8em;
+    color: #333333;
+    height: 3em;
+    position: relative;
+    background-color: #f8f8f8;
+    font-weight: normal;
+    z-index: 1;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title:after{
+    content: "";
+    width: 200%;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom: #e6e6e6 solid 1px;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.5, 0.5);
+    -o-transform: scale(0.5, 0.5);
+    transform: scale(0.5, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title .main-title {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title .result{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    text-align: right;
+}
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title .close{
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 1.8em;
+    color: #aaaaaa;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-title::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 1px;
+    height: 100%;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    height: 85%;
+
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list li {
+    list-style: none;
+    padding-left: 1em;
+    height: 3em;
+    line-height: 3em;
+    font-size: .74em;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: transform 500ms;
+    -moz-transition: transform 500ms;
+    -ms-transition: transform 500ms;
+    -o-transition: transform 500ms;
+    transition: transform 500ms;
+}
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list li:after{
+    content: "";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom: #e6e6e6 solid 1px;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    -ms-transform: scaleY(0.5);
+    -o-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list li.current {
+    color: #32c1d4;
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list li:active {
+    background-color: #fcfcfc;
+    /*-webkit-transform: perspective(200px) rotateY(-10deg) translate(-2.5rem);*/
+    /*transform: perspective(200px) rotateY(-10deg) translate(-2.5rem);*/
+    /*-webkit-box-shadow: 2px 2px 5px #aaaaaa;*/
+    /*-moz-box-shadow: 2px 2px 5px #aaaaaa;*/
+    /*box-shadow: 2px 2px 5px #aaaaaa;*/
+}
+
+.kiner-select-box .kiner-select-box-data-list .kiner-select-box-list li:nth-last-child(1) {
+    border-bottom: none;
+}

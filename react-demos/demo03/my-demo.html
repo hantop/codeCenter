@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my-demo</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div class="box"></div>
+
+<script type="text/babel">
+
+    var arr = [
+            <h1>my name is kiner!</h1>,
+            <h2>nice to meed you!</h2>
+    ];
+
+    ReactDOM.render(
+            <div>{arr}</div>,
+            document.getElementsByClassName('box')[0]
+    );
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my-demo2.html</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            width: 90%;
+            background: #fafafa;
+            margin: 100px auto;
+        }
+        ul li{
+            background: #bcbcbc;
+            border-bottom: #e6e6e6 1px solid;
+        }
+        ul li:last-child{
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box"></div>
+
+<script type="text/babel">
+
+    var names = ["kiner","kanger","twh"];
+
+    ReactDOM.render(
+            <ul>
+                {
+                    names.map(function(name){
+
+                        return <li>我的名字叫 {name}</li>
+
+                    })
+                }
+            </ul>,
+            document.getElementsByClassName('box')[0]
+    );
+
+</script>
+
+
+</body>
+</html>

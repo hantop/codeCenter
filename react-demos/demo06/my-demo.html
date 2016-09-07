@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>propTypes</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div class="box"></div>
+
+<script type="text/babel">
+
+    var title = "这是标题";
+
+    var MyTitle = React.createClass({
+        propTypes:{
+            title : React.PropTypes.string.isRequired
+        },
+        render: function(){
+            return <h1>{this.props.title}</h1>;
+        }
+    });
+
+    ReactDOM.render(
+
+            <MyTitle title={title}/>,
+            document.getElementsByClassName('box')[0]
+
+    );
+
+</script>
+
+</body>
+</html>

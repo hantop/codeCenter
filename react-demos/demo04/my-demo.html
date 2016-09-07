@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>createClass</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div class="box"></div>
+
+<script type="text/babel">
+
+    var Kiner = React.createClass({
+        render: function(){
+            return <h1>My Name Is {this.props.name}</h1>
+        }
+    });
+
+    ReactDOM.render(
+            <Kiner name="Kiner Tang"/>,
+            document.getElementsByClassName('box')[0]
+    );
+
+</script>
+
+</body>
+</html>

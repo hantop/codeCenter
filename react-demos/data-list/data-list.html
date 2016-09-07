@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>使用React Js 实现单选插件</title>
+
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script src="../build/jquery.min.js"></script>
+    <script src="dataList.js" type="text/babel"></script>
+
+    <link rel="stylesheet" href="datalist.css">
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        button {
+            width: 90%;
+            height: 40px;
+            background-color: #00a2d4;
+            color: #fafafa;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin: 100px auto;
+            display: block;
+            font-size: 18px;
+        }
+        .resultPanel{
+            width: 100%;
+            color: #aaaaaa;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<button id="btn">点我</button>
+
+<div id="box"></div>
+
+<div class="resultPanel"></div>
+
+<script type="text/babel">
+
+
+    $('#btn').click(function () {
+        EventEmitter.dispatch("show");
+    });
+
+
+    EventEmitter.subscribe("shown", function () {
+//        console.log("触发shown:", arguments);
+    });
+    EventEmitter.subscribe("hidden", function () {
+//        console.log("触发hidden:", arguments);
+    });
+    EventEmitter.subscribe("change", function (result) {
+        $('.resultPanel').html("您选择了"+result.value+"【"+result.key+"】");
+    });
+    EventEmitter.subscribe("selected", function () {
+//        console.log("selected:", arguments);
+    });
+
+</script>
+
+</body>
+</html>
