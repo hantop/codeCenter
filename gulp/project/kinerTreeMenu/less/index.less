@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+// Color variables (appears count calculates by raw css)
+@color0: #ffffff; // Appears 8 times
+@color1: #000000; // Appears 4 times
+@color2: #1a1a1a; // Appears 3 times
+
+
+// Height variables (appears count calculates by raw css)
+@height3: 100%; // Appears 4 times
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.box {
+  float: left;
+  height: 800px;
+  width: 20%;
+}
+.mainTitle {
+  background-color: #0c5377;
+  height: 1.5rem;
+  position: relative;
+  h2 {
+    color: @color0;
+    display: inline-block;
+    font-size: 1.2rem;
+    height: @height3;
+    line-height: 1.5rem;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0 5px @color1;
+    vertical-align: middle;
+    width: 60%;
+  }
+}
+.btngroup {
+  display: inline-block;
+  height: @height3;
+  padding-left: 1rem;
+  vertical-align: middle;
+  button {
+    -moz-box-shadow: 0 0 5px @color1;
+    -webkit-box-shadow: 0 0 5px @color1;
+    background: #0e90d2;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 5px @color1;
+    color: @color0;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .4rem;
+    height: .8rem;
+    outline: none;
+    position: relative;
+    vertical-align: middle;
+    width: 3rem;
+    z-index: 9;
+    &:active {
+      -moz-box-shadow: 0 0 5px @color0;
+      -webkit-box-shadow: 0 0 5px @color0;
+      box-shadow: 0 0 5px @color0;
+    }
+  }
+}
+.panel {
+  -moz-box-shadow: 0 0 5px @color0, inset 0 0 10px @color2;
+  -webkit-box-shadow: 0 0 5px @color0, inset 0 0 10px @color2;
+  background-color: gainsboro;
+  box-shadow: 0 0 5px @color0, inset 0 0 10px @color2;
+  float: left;
+  height: @height3;
+  width: 80%;
+  iframe {
+    height: @height3;
+    width: 100%;
+    html {
+      overflow: scroll;
+    }
+    body {
+      overflow: scroll;
+    }
+  }
+}
+.icontest{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  &.icon1{
+    background-image: url(../imgs/icon.png);
+  }&.icon2{
+    background-image: url(../imgs/icon2.png);
+  }&.icon3{
+    background-image: url(../imgs/icon3.png);
+  }
+}

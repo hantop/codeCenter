@@ -20,11 +20,34 @@ var gulp = require("gulp"),
     fs = require('fs'),//文件操作
     mkdirp = require("mkdirp"),//目录操作
     File = require("vinyl"),//文件对象
-
+    htmlmin = require('gulp-htmlmin'),//html压缩
+    base64 = require('gulp-base64'),//将小图片转换成base64
+    spritesmith=require('gulp.spritesmith'),
     conf = require("./desc.js");//配置文件
 
 
+//html压缩参数
+var htmlminOptions ={
+    collapseWhitespace:true,
+    collapseBooleanAttributes:true,
+    removeComments:true,
+    removeEmptyAttributes:true,
+    removeScriptTypeAttributes:true,
+    removeStyleLinkTypeAttributes:true,
+    minifyJS:true,
+    minifyCSS:true
+};
 
+
+
+//css代码中base64参数
+var base64Option = {
+    options: {
+        extensions: ['png','jpg','jpeg','gif'],
+        maxImageSize: 100 * 1024, // bytes
+        debug: false
+    }
+};
 
 
 
@@ -180,6 +203,7 @@ gulp.task("sass", function () {
         .pipe(plumber())
         .pipe(gulp.dest(tempPath + 'sass/'))
         .pipe(sass())
+        .pipe(base64(base64Option))
         .pipe(plugins.cssnano())
         .pipe(plugins.rename({suffix: '.min'}))
         // .pipe(rev())
@@ -204,7 +228,15 @@ gulp.task("less", function () {
         .pipe(plumber())
         .pipe(gulp.dest(tempPath + 'less/'))
         .pipe(less())
+        .pipe(base64(base64Option))
         .pipe(plugins.cssnano())
+        // .pipe(spritesmith({
+        //     imgName: 'sprite.png',//保存合并后图片的地址
+        //     cssName: 'css/sprite.css',//保存合并后对于css样式的地址
+        //     padding:5,//合并时两个图片的间距
+        //     algorithm: 'binary-tree',//注释1
+        //     cssTemplate:basePath+"template/cssTemplate.css"//注释2
+        // }))
         .pipe(plugins.rename({suffix: '.min'}))
         // .pipe(rev())
         .pipe(gulp.dest(outputPath + "css"))
@@ -259,6 +291,8 @@ gulp.task("html",[/*"rev"*/], function () {
     gulp.src([basePath+"*.html"])
         .pipe(plugins.replace('<script src="js/all.js"></script>','<script src="js/all.min.js"></script>'))
         .pipe(plugins.replace('<link rel="stylesheet" href="all.css">','<link rel="stylesheet" href="css/all.min.css">'))
+        .pipe(base64(base64Option))
+        .pipe(htmlmin(htmlminOptions))
         .pipe(gulp.dest(outputPath))
         .pipe(tools.notify("复制完成..."));
 

@@ -49,11 +49,11 @@ p,li,b,span,div,strong,h1,h2,h3,h4,h5,h6,a,ul{
 .box {
     width: 14rem;
     height: 14rem;
-    position: relative;
     margin: 0 auto;
     position: absolute;
     top: 50%;
     left: 50%;
+    overflow: hidden;
     transform: translate(-50%,-40%);
     -webkit-transform: translate(-50%,-40%);
     -moz-transform: translate(-50%,-40%);

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>h5与原生交互调试页面</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            font-size : 20px;
+        }
+        @media only screen and (min-width: 401px){
+            html {
+                font-size: 25px !important;
+            }
+        }
+        @media only screen and (min-width: 428px){
+            html {
+                font-size: 26.75px !important;
+            }
+        }
+        @media only screen and (min-width: 481px){
+            html {
+                font-size: 30px !important;
+            }
+        }
+        @media only screen and (min-width: 569px){
+            html {
+                font-size: 35px !important;
+            }
+        }
+        @media only screen and (min-width: 641px){
+            html {
+                font-size: 40px !important;
+            }
+        }
+
+        .page{
+            padding: 1rem;
+        }
+        .btn{
+            display: block;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            background-color: #0c5377;
+            color: #FFFFFF;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            outline: none;
+            border: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            margin: .5rem 0;
+        }
+        .btn:focus,.btn:active{
+            opacity: .72;
+        }
+    </style>
+    <script>
+        window.location.href = "http://192.168.1.79/jsBridge/";
+    </script>
+</head>
+<body>
+
+    <div class="page">
+
+        <button class="btn" id="share">分享</button>
+        <button class="btn" id="jumpLogin">跳转到登录页</button>
+        <button class="btn" id="getUserStatus">获取用户登录状态</button>
+        <button class="btn" id="uiMenu">显示菜单</button>
+        <a class="btn" href="http://192.168.1.79/jsBridge/">代理</a>
+
+
+
+    </div>
+
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="jsBridge.js"></script>
+    <script src="aes.js"></script>
+    <script src="sign.js"></script>
+    <script>
+
+
+//        var d = {"plat_type":"ios","curr_version":"3.3.0","device_token":"","method":"post","loginname":"13450262032","password":"123qwe"};
+        var d = {"epage": 1,"page":1};
+        var str = sign(d);
+
+        console.log("加密:"+str);
+
+        var decode = decodeURIComponent(Aes.Ctr.decrypt(str, "r#PIo@gnA2%$K3@Z", 256));
+        console.log("解密:",JSON.parse(decode));
+
+
+        $.ajax({
+            url:"/mjkf-test6/borrow/getlist/all_tender_list?mdurl="+str,
+            type:"get",
+            dataType:"json",
+            success:function(data){
+                alert(JSON.stringify(data));
+                console.log(data);
+            },
+            error:function(){
+                alert(JSON.stringify(arguments));
+                console.log(arguments);
+            }
+        });
+
+
+        function get(id){
+            return document.getElementById(id);
+        }
+
+
+
+        get('share').onclick = function(){
+
+            var res = app.doShare("测试分享标题","这是测试分享内容","https://www.baidu.com","http://wiki.mindaitianxia.com/images/logo/default-space-logo-256.png");
+
+            console.log("[share]返回:",res);
+
+        };
+
+        get('jumpLogin').onclick = function(){
+
+
+            app.jumpLogin(function(message){
+                console.log("[jumpLogin]返回:",message);
+            });
+
+
+
+        };
+
+        get('getUserStatus').onclick = function(){
+            app.getUserStatus(function(result){
+                console.log("[getUserStatus]返回:", result);
+            });
+
+        };
+
+        get('uiMenu').onclick = function(){
+            var data = {
+                title: document.title,
+                imageUrl:"http://wiki.mindaitianxia.com/images/logo/default-space-logo-256.png",
+                site: "left"
+            };
+            app.uiMenu(data,function(result){
+                console.log("[uiMenu]返回:", result);
+            });
+
+        };
+
+    </script>
+
+</body>
+</html>
