@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <title></title>
+    <style>
+        .upload{
+            width: 200px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            background: cornflowerblue;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--<input type="file" name="file" id="file">-->
+<div class="upload">上传</div>
+<img src="" id="img" alt="" width="50%" style="margin: 20px auto;">
+<script src="jquery-1.8.3.min.js"></script>
+<script src="imageUploader.js"></script>
+<script>
+
+    
+    $('.upload').imageUpload({
+        remote:{
+            success:function(data){
+				$('#img').attr('src',data.result);
+                alert("图片上传成功");
+                console.log(data);
+            },
+            complete:function(){},
+            error:function(){},
+            url:"http://115.28.140.9/tangwenhui/plupload-2.1.0/upload2.php",
+            data:{
+                type:"front"
+            }
+        }
+    });
+
+
+
+</script>
+</body>
+</html>
